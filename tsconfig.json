@@ -1,15 +1,19 @@
 {
 	"compilerOptions": {
-		"target": "ES5",
-		"sourceMap": true,
-		"module": "commonjs",
 		"noImplicitAny": false,
 		"noEmitOnError": true,
-		"removeComments": true
+		"removeComments": true,
+		"sourceMap": true,
+		"target": "es5",
+		"module": "amd",
+		"declaration": true,
+		"outFile": "./dist/t-js.js",
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true
 	},
 	"files": [
 		"./typings/index.d.ts",
-		"./src/renderer.ts"
+		"./src/common.ts"
 	],
 	"compileOnSave": true
 }
