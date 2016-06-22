@@ -1,0 +1,15 @@
+{
+	"compilerOptions": {
+		"target": "ES5",
+		"sourceMap": true,
+		"module": "commonjs",
+		"noImplicitAny": false,
+		"noEmitOnError": true,
+		"removeComments": true
+	},
+	"files": [
+		"./typings/index.d.ts",
+		"./src/renderer.ts"
+	],
+	"compileOnSave": true
+}
