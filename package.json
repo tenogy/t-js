@@ -1,6 +1,6 @@
 {
 	"version": "0.0.1",
-	"name": "t-js",
+	"name": "tjs",
 	"private": true,
 	"devDependencies": {
 		"browserify": "^13.0.1",
@@ -30,6 +30,8 @@
 		]
 	},
 	"browserify-shim": {
-		"$": "global:jquery"
+		"jquery": "global:jquery",
+		"knockout": "global:knockout",
+		"rx": "global:rx"
 	}
 }
