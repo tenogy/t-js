@@ -5,9 +5,9 @@
 		"removeComments": true,
 		"sourceMap": true,
 		"target": "es5",
-		"module": "umd",
+		"module": "amd",
 		"declaration": true,
-		"outFile": "./dist/t-js.js",
+		"outFile": "./dev/t-js.js",
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true
 	},

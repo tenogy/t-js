@@ -69,7 +69,8 @@
     var AjaxServices = (function () {
         function AjaxServices(serviceEndpoints) {
             var target = this;
-            for (var endpointName in serviceEndpoints) {
+            for (var _i = 0, serviceEndpoints_1 = serviceEndpoints; _i < serviceEndpoints_1.length; _i++) {
+                var endpointName = serviceEndpoints_1[_i];
                 target[endpointName] = createServiceMethod(serviceEndpoints[endpointName]);
             }
         }

@@ -20,7 +20,17 @@ var b = browserify({
 		cache: {},
 		packageCache: {},
 		standalone: "tjs"
-	}).plugin(tsify);
+		}).plugin(tsify, {
+			"noImplicitAny": false,
+			"noEmitOnError": true,
+			"removeComments": true,
+			"sourceMap": true,
+			"target": "es5",
+			"module": "umd",
+			"declaration": true,
+			"experimentalDecorators": true,
+			"emitDecoratorMetadata": true
+		});
 
 var watchedBrowserify = null;
 

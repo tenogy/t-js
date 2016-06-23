@@ -66,7 +66,7 @@ export function ajax(config: any) {
 export class AjaxServices {
 	constructor(serviceEndpoints: string[]) {
 		var target = <any>this;
-		for (var endpointName in serviceEndpoints) {
+		for (var endpointName of serviceEndpoints) {
 			target[endpointName] = createServiceMethod(serviceEndpoints[endpointName]);
 		}
 	}
