@@ -1,7 +1,6 @@
 {
 	"version": "0.0.1",
 	"name": "tenogy",
-	"private": true,
 	"devDependencies": {
 		"browserify": "^13.0.1",
 		"browserify-shim": "^3.8.12",
