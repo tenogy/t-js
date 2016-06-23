@@ -3,6 +3,7 @@ var del = require("del");
 var browserify = require("browserify");
 var source = require("vinyl-source-stream");
 var tsify = require("tsify");
+var ts = require("gulp-typescript");
 var watchify = require("watchify");
 var gutil = require("gulp-util");
 var sourcemaps = require("gulp-sourcemaps");
@@ -12,6 +13,8 @@ var packageJson = require("./package.json");
 var uglify = require("gulp-uglify");
 var rename = require("gulp-rename");
 var streamify = require("gulp-streamify");
+
+var tsProject = ts.createProject("tsconfig.json");
 
 var b = browserify({
 		basedir: ".",
@@ -67,11 +70,28 @@ gulp.task("min", function () {
 		pipe(gulp.dest("dist"));
 });
 
-gulp.task("default", function () {
+gulp.task("compile", function () {
 	return bundle(b);
 });
 
 gulp.task("clean", function () {
 	return del(["./dist/*"]);
 });
-gulp.task("build", ["clean", "min", "default"]);
+
+gulp.task("dev", function () {
+	var tsResult = tsProject.src().pipe(sourcemaps.init()).pipe(ts(tsProject));
+
+	tsResult.dts.pipe(gulp.dest("./"));
+	tsResult.js.pipe(sourcemaps.write("./")).pipe(gulp.dest("./"));
+	return tsResult.js.pipe(uglify()).pipe(rename({ suffix: ".min" })).pipe(gulp.dest("./"));
+});
+
+
+gulp.task("dts", function () {
+	var tsResult = tsProject.src().pipe(sourcemaps.init()).pipe(ts(tsProject));
+
+	return tsResult.dts.pipe(rename({dirname: ""})).pipe(gulp.dest("dist"));
+});
+
+
+gulp.task("default", ["clean", "min", "dts", "compile"]);
