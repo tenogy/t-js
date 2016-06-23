@@ -1,11 +1,14 @@
 {
 	"name": "tenogy",
-	"version": "0.0.1",
+	"description": "Create your JS App easy and fun",
 	"ignore": [
 		"*",
 		"!dist/",
 		"!dist/*",
 		"!src/",
 		"!src/*"
+	],
+	"authors": [
+		"Yuriy Korpachan <korpachan@gmail.com>"
 	]
 }
