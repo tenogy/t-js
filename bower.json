@@ -1,0 +1,9 @@
+{
+	"name": "tenogy",
+	"version": "0.0.1",
+	"ignore": [
+		"*",
+		"!dist/",
+		"!dist/*"
+	]
+}

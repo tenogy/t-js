@@ -41,7 +41,7 @@ function bundle(task) {
 	return task.
 		bundle().
 		on("error", gutil.log).
-		pipe(source("t-js.js")).
+		pipe(source("tenogy.js")).
 		pipe(buffer()).
 		pipe(sourcemaps.init({ loadMaps: true })).
 		pipe(sourcemaps.write("./")).
@@ -63,7 +63,7 @@ gulp.task("min", function () {
 	return b.
 		bundle().
 		on("error", gutil.log).
-		pipe(source("t-js.min.js")).
+		pipe(source("tenogy.min.js")).
 		pipe(buffer()).
 		pipe(sourcemaps.init({ loadMaps: true })).
 		pipe(uglify()).

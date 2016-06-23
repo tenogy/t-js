@@ -7,7 +7,7 @@
 		"target": "es5",
 		"module": "amd",
 		"declaration": true,
-		"outFile": "./dev/t-js.js",
+		"outFile": "./dev/tenogy.js",
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true
 	},
