@@ -1,6 +1,4 @@
-﻿import * as ko from "knockout";
-import * as $ from "jquery";
-import {BaseBinding} from "./../core/baseBinding"
+﻿import {BaseBinding} from "./../core/baseBinding"
 
 export class AliasBinding extends BaseBinding {
 	update(element: HTMLElement, valueAccessor: () => any, allBindingsAccessor?: KnockoutAllBindingsAccessor, viewModel?: any, bindingContext?: any) {

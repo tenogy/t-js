@@ -1,5 +1,4 @@
-﻿import * as ko from "knockout";
-import {BaseBinding} from "./../core/baseBinding"
+﻿import {BaseBinding} from "./../core/baseBinding"
 
 export class AlertPanelBinding extends BaseBinding {
 	init(element: HTMLElement, valueAccessor: () => any, allBindingsAccessor?: KnockoutAllBindingsAccessor, viewModel?: any, bindingContext?: KnockoutBindingContext) {

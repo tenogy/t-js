@@ -1,6 +1,4 @@
-﻿import * as ko from "knockout";
-import * as Rx from "rx";
-import {SortDirection} from "./sort";
+﻿import {SortDirection} from "./sort";
 
 export class SortRule {
 	constructor(type?: any, direction?: SortDirection) {

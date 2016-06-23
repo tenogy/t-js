@@ -19,7 +19,7 @@ var tsProject = ts.createProject("tsconfig.json");
 var b = browserify({
 		basedir: ".",
 		debug: true,
-		entries: ["src/common.ts"],
+		entries: ["src/tenogy.ts"],
 		cache: {},
 		packageCache: {},
 		standalone: "tjs"

@@ -1,15 +1,13 @@
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.tjs = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-(function (global){
 (function (factory) {
     if (typeof module === 'object' && typeof module.exports === 'object') {
         var v = factory(require, exports); if (v !== undefined) module.exports = v;
     }
     else if (typeof define === 'function' && define.amd) {
-        define(["require", "exports", "jquery"], factory);
+        define(["require", "exports"], factory);
     }
 })(function (require, exports) {
     "use strict";
-    var $ = (typeof window !== "undefined" ? window['jquery'] : typeof global !== "undefined" ? global['jquery'] : null);
     var AjaxService = (function () {
         function AjaxService(config) {
             this.config = config;
@@ -69,8 +67,7 @@
     var AjaxServices = (function () {
         function AjaxServices(serviceEndpoints) {
             var target = this;
-            for (var _i = 0, serviceEndpoints_1 = serviceEndpoints; _i < serviceEndpoints_1.length; _i++) {
-                var endpointName = serviceEndpoints_1[_i];
+            for (var endpointName in serviceEndpoints) {
                 target[endpointName] = createServiceMethod(serviceEndpoints[endpointName]);
             }
         }
@@ -86,49 +83,16 @@
         };
     }
 });
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-
 },{}],2:[function(require,module,exports){
 (function (factory) {
     if (typeof module === 'object' && typeof module.exports === 'object') {
         var v = factory(require, exports); if (v !== undefined) module.exports = v;
     }
     else if (typeof define === 'function' && define.amd) {
-        define(["require", "exports", "./utils", "./ajax", "./ko/ko-utils", "./ko/core/baseBinding", "./ko/bindings/aliasBinding", "./ko/bindings/enterBinding", "./ko/bindings/alertPanelBinding", "./ko/bindings/spinBinding", "./ko/alert", "./ko/loadingProgress", "./lists/sort", "./lists/sortBinding", "./lists/sortRule", "./lists/listPaging", "./lists/listWithServerHtml"], factory);
+        define(["require", "exports"], factory);
     }
 })(function (require, exports) {
     "use strict";
-    function __export(m) {
-        for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-    }
-    __export(require("./utils"));
-    __export(require("./ajax"));
-    __export(require("./ko/ko-utils"));
-    __export(require("./ko/core/baseBinding"));
-    __export(require("./ko/bindings/aliasBinding"));
-    __export(require("./ko/bindings/enterBinding"));
-    __export(require("./ko/bindings/alertPanelBinding"));
-    __export(require("./ko/bindings/spinBinding"));
-    __export(require("./ko/alert"));
-    __export(require("./ko/loadingProgress"));
-    __export(require("./lists/sort"));
-    __export(require("./lists/sortBinding"));
-    __export(require("./lists/sortRule"));
-    __export(require("./lists/listPaging"));
-    __export(require("./lists/listWithServerHtml"));
-});
-},{"./ajax":1,"./ko/alert":3,"./ko/bindings/alertPanelBinding":4,"./ko/bindings/aliasBinding":5,"./ko/bindings/enterBinding":6,"./ko/bindings/spinBinding":7,"./ko/core/baseBinding":8,"./ko/ko-utils":9,"./ko/loadingProgress":10,"./lists/listPaging":11,"./lists/listWithServerHtml":12,"./lists/sort":13,"./lists/sortBinding":14,"./lists/sortRule":15,"./utils":16}],3:[function(require,module,exports){
-(function (global){
-(function (factory) {
-    if (typeof module === 'object' && typeof module.exports === 'object') {
-        var v = factory(require, exports); if (v !== undefined) module.exports = v;
-    }
-    else if (typeof define === 'function' && define.amd) {
-        define(["require", "exports", "knockout"], factory);
-    }
-})(function (require, exports) {
-    "use strict";
-    var ko = (typeof window !== "undefined" ? window['knockout'] : typeof global !== "undefined" ? global['knockout'] : null);
     var AlertMessage = (function () {
         function AlertMessage(message, caption, shown, type) {
             if (message === void 0) { message = ""; }
@@ -161,10 +125,7 @@
     }());
     exports.AlertMessage = AlertMessage;
 });
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-
-},{}],4:[function(require,module,exports){
-(function (global){
+},{}],3:[function(require,module,exports){
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -175,11 +136,10 @@ var __extends = (this && this.__extends) || function (d, b) {
         var v = factory(require, exports); if (v !== undefined) module.exports = v;
     }
     else if (typeof define === 'function' && define.amd) {
-        define(["require", "exports", "knockout", "./../core/baseBinding"], factory);
+        define(["require", "exports", "./../core/baseBinding"], factory);
     }
 })(function (require, exports) {
     "use strict";
-    var ko = (typeof window !== "undefined" ? window['knockout'] : typeof global !== "undefined" ? global['knockout'] : null);
     var baseBinding_1 = require("./../core/baseBinding");
     var AlertPanelBinding = (function (_super) {
         __extends(AlertPanelBinding, _super);
@@ -201,10 +161,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     exports.AlertPanelBinding = AlertPanelBinding;
     baseBinding_1.BaseBinding.register("alertPanel", AlertPanelBinding);
 });
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-
-},{"./../core/baseBinding":8}],5:[function(require,module,exports){
-(function (global){
+},{"./../core/baseBinding":7}],4:[function(require,module,exports){
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -215,11 +172,10 @@ var __extends = (this && this.__extends) || function (d, b) {
         var v = factory(require, exports); if (v !== undefined) module.exports = v;
     }
     else if (typeof define === 'function' && define.amd) {
-        define(["require", "exports", "jquery", "./../core/baseBinding"], factory);
+        define(["require", "exports", "./../core/baseBinding"], factory);
     }
 })(function (require, exports) {
     "use strict";
-    var $ = (typeof window !== "undefined" ? window['jquery'] : typeof global !== "undefined" ? global['jquery'] : null);
     var baseBinding_1 = require("./../core/baseBinding");
     var AliasBinding = (function (_super) {
         __extends(AliasBinding, _super);
@@ -246,10 +202,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     exports.AliasBinding = AliasBinding;
     baseBinding_1.BaseBinding.register("alias", AliasBinding, true);
 });
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-
-},{"./../core/baseBinding":8}],6:[function(require,module,exports){
-(function (global){
+},{"./../core/baseBinding":7}],5:[function(require,module,exports){
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -260,11 +213,10 @@ var __extends = (this && this.__extends) || function (d, b) {
         var v = factory(require, exports); if (v !== undefined) module.exports = v;
     }
     else if (typeof define === 'function' && define.amd) {
-        define(["require", "exports", "jquery", "./../core/baseBinding"], factory);
+        define(["require", "exports", "./../core/baseBinding"], factory);
     }
 })(function (require, exports) {
     "use strict";
-    var $ = (typeof window !== "undefined" ? window['jquery'] : typeof global !== "undefined" ? global['jquery'] : null);
     var baseBinding_1 = require("./../core/baseBinding");
     var EnterBinding = (function (_super) {
         __extends(EnterBinding, _super);
@@ -288,10 +240,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     exports.EnterBinding = EnterBinding;
     baseBinding_1.BaseBinding.register("enter", EnterBinding, true);
 });
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-
-},{"./../core/baseBinding":8}],7:[function(require,module,exports){
-(function (global){
+},{"./../core/baseBinding":7}],6:[function(require,module,exports){
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -302,11 +251,10 @@ var __extends = (this && this.__extends) || function (d, b) {
         var v = factory(require, exports); if (v !== undefined) module.exports = v;
     }
     else if (typeof define === 'function' && define.amd) {
-        define(["require", "exports", "knockout", "./../core/baseBinding", "./../../utils"], factory);
+        define(["require", "exports", "./../core/baseBinding", "./../../utils"], factory);
     }
 })(function (require, exports) {
     "use strict";
-    var ko = (typeof window !== "undefined" ? window['knockout'] : typeof global !== "undefined" ? global['knockout'] : null);
     var baseBinding_1 = require("./../core/baseBinding");
     var utils_1 = require("./../../utils");
     var SpinBinding = (function (_super) {
@@ -365,20 +313,16 @@ var __extends = (this && this.__extends) || function (d, b) {
     }
     baseBinding_1.BaseBinding.register("spin", SpinBinding);
 });
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-
-},{"./../../utils":16,"./../core/baseBinding":8}],8:[function(require,module,exports){
-(function (global){
+},{"./../../utils":16,"./../core/baseBinding":7}],7:[function(require,module,exports){
 (function (factory) {
     if (typeof module === 'object' && typeof module.exports === 'object') {
         var v = factory(require, exports); if (v !== undefined) module.exports = v;
     }
     else if (typeof define === 'function' && define.amd) {
-        define(["require", "exports", "knockout"], factory);
+        define(["require", "exports"], factory);
     }
 })(function (require, exports) {
     "use strict";
-    var ko = (typeof window !== "undefined" ? window['knockout'] : typeof global !== "undefined" ? global['knockout'] : null);
     var BaseBinding = (function () {
         function BaseBinding() {
         }
@@ -404,20 +348,16 @@ var __extends = (this && this.__extends) || function (d, b) {
     }());
     exports.BaseBinding = BaseBinding;
 });
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-
-},{}],9:[function(require,module,exports){
-(function (global){
+},{}],8:[function(require,module,exports){
 (function (factory) {
     if (typeof module === 'object' && typeof module.exports === 'object') {
         var v = factory(require, exports); if (v !== undefined) module.exports = v;
     }
     else if (typeof define === 'function' && define.amd) {
-        define(["require", "exports", "knockout"], factory);
+        define(["require", "exports"], factory);
     }
 })(function (require, exports) {
     "use strict";
-    var ko = (typeof window !== "undefined" ? window['knockout'] : typeof global !== "undefined" ? global['knockout'] : null);
     var markTemplate = "$ko$computed";
     function computed(target, propertyKey, descriptor) {
         var method = target[propertyKey];
@@ -481,10 +421,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         }
     }
 });
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-
-},{}],10:[function(require,module,exports){
-(function (global){
+},{}],9:[function(require,module,exports){
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -499,11 +436,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
         var v = factory(require, exports); if (v !== undefined) module.exports = v;
     }
     else if (typeof define === 'function' && define.amd) {
-        define(["require", "exports", "knockout", "./ko-utils"], factory);
+        define(["require", "exports", "./ko-utils"], factory);
     }
 })(function (require, exports) {
     "use strict";
-    var ko = (typeof window !== "undefined" ? window['knockout'] : typeof global !== "undefined" ? global['knockout'] : null);
     var ko_utils_1 = require("./ko-utils");
     var LoadingProgress = (function () {
         function LoadingProgress(options) {
@@ -575,10 +511,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
         });
     }
 });
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-
-},{"./ko-utils":9}],11:[function(require,module,exports){
-(function (global){
+},{"./ko-utils":8}],10:[function(require,module,exports){
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -593,11 +526,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
         var v = factory(require, exports); if (v !== undefined) module.exports = v;
     }
     else if (typeof define === 'function' && define.amd) {
-        define(["require", "exports", "knockout", "./../ko/ko-utils"], factory);
+        define(["require", "exports", "./../ko/ko-utils"], factory);
     }
 })(function (require, exports) {
     "use strict";
-    var ko = (typeof window !== "undefined" ? window['knockout'] : typeof global !== "undefined" ? global['knockout'] : null);
     var ko_utils_1 = require("./../ko/ko-utils");
     var ListPaging = (function () {
         function ListPaging(paging, gotoPageHandler) {
@@ -647,20 +579,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
         });
     }
 });
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-
-},{"./../ko/ko-utils":9}],12:[function(require,module,exports){
-(function (global){
+},{"./../ko/ko-utils":8}],11:[function(require,module,exports){
 (function (factory) {
     if (typeof module === 'object' && typeof module.exports === 'object') {
         var v = factory(require, exports); if (v !== undefined) module.exports = v;
     }
     else if (typeof define === 'function' && define.amd) {
-        define(["require", "exports", "knockout"], factory);
+        define(["require", "exports"], factory);
     }
 })(function (require, exports) {
     "use strict";
-    var ko = (typeof window !== "undefined" ? window['knockout'] : typeof global !== "undefined" ? global['knockout'] : null);
     var ListWithServerHtml = (function () {
         function ListWithServerHtml(items, html, paging, options) {
             options = options || {};
@@ -685,9 +613,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
         });
     }
 });
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-
-},{}],13:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 (function (factory) {
     if (typeof module === 'object' && typeof module.exports === 'object') {
         var v = factory(require, exports); if (v !== undefined) module.exports = v;
@@ -703,8 +629,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     })(exports.SortDirection || (exports.SortDirection = {}));
     var SortDirection = exports.SortDirection;
 });
-},{}],14:[function(require,module,exports){
-(function (global){
+},{}],13:[function(require,module,exports){
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -715,12 +640,10 @@ var __extends = (this && this.__extends) || function (d, b) {
         var v = factory(require, exports); if (v !== undefined) module.exports = v;
     }
     else if (typeof define === 'function' && define.amd) {
-        define(["require", "exports", "knockout", "jquery", "./../ko/core/baseBinding", "./sort"], factory);
+        define(["require", "exports", "./../ko/core/baseBinding", "./sort"], factory);
     }
 })(function (require, exports) {
     "use strict";
-    var ko = (typeof window !== "undefined" ? window['knockout'] : typeof global !== "undefined" ? global['knockout'] : null);
-    var $ = (typeof window !== "undefined" ? window['jquery'] : typeof global !== "undefined" ? global['jquery'] : null);
     var baseBinding_1 = require("./../ko/core/baseBinding");
     var sort_1 = require("./sort");
     var SortBinding = (function (_super) {
@@ -792,21 +715,16 @@ var __extends = (this && this.__extends) || function (d, b) {
     exports.SortBinding = SortBinding;
     baseBinding_1.BaseBinding.register("sort", SortBinding);
 });
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-
-},{"./../ko/core/baseBinding":8,"./sort":13}],15:[function(require,module,exports){
-(function (global){
+},{"./../ko/core/baseBinding":7,"./sort":12}],14:[function(require,module,exports){
 (function (factory) {
     if (typeof module === 'object' && typeof module.exports === 'object') {
         var v = factory(require, exports); if (v !== undefined) module.exports = v;
     }
     else if (typeof define === 'function' && define.amd) {
-        define(["require", "exports", "knockout", "rx", "./sort"], factory);
+        define(["require", "exports", "./sort"], factory);
     }
 })(function (require, exports) {
     "use strict";
-    var ko = (typeof window !== "undefined" ? window['knockout'] : typeof global !== "undefined" ? global['knockout'] : null);
-    var Rx = (typeof window !== "undefined" ? window['rx'] : typeof global !== "undefined" ? global['rx'] : null);
     var sort_1 = require("./sort");
     var SortRule = (function () {
         function SortRule(type, direction) {
@@ -835,9 +753,36 @@ var __extends = (this && this.__extends) || function (d, b) {
     }());
     exports.SortRule = SortRule;
 });
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-
-},{"./sort":13}],16:[function(require,module,exports){
+},{"./sort":12}],15:[function(require,module,exports){
+(function (factory) {
+    if (typeof module === 'object' && typeof module.exports === 'object') {
+        var v = factory(require, exports); if (v !== undefined) module.exports = v;
+    }
+    else if (typeof define === 'function' && define.amd) {
+        define(["require", "exports", "./utils", "./ajax", "./ko/ko-utils", "./ko/core/baseBinding", "./ko/bindings/aliasBinding", "./ko/bindings/enterBinding", "./ko/bindings/alertPanelBinding", "./ko/bindings/spinBinding", "./ko/alert", "./ko/loadingProgress", "./lists/sort", "./lists/sortBinding", "./lists/sortRule", "./lists/listPaging", "./lists/listWithServerHtml"], factory);
+    }
+})(function (require, exports) {
+    "use strict";
+    function __export(m) {
+        for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+    }
+    __export(require("./utils"));
+    __export(require("./ajax"));
+    __export(require("./ko/ko-utils"));
+    __export(require("./ko/core/baseBinding"));
+    __export(require("./ko/bindings/aliasBinding"));
+    __export(require("./ko/bindings/enterBinding"));
+    __export(require("./ko/bindings/alertPanelBinding"));
+    __export(require("./ko/bindings/spinBinding"));
+    __export(require("./ko/alert"));
+    __export(require("./ko/loadingProgress"));
+    __export(require("./lists/sort"));
+    __export(require("./lists/sortBinding"));
+    __export(require("./lists/sortRule"));
+    __export(require("./lists/listPaging"));
+    __export(require("./lists/listWithServerHtml"));
+});
+},{"./ajax":1,"./ko/alert":2,"./ko/bindings/alertPanelBinding":3,"./ko/bindings/aliasBinding":4,"./ko/bindings/enterBinding":5,"./ko/bindings/spinBinding":6,"./ko/core/baseBinding":7,"./ko/ko-utils":8,"./ko/loadingProgress":9,"./lists/listPaging":10,"./lists/listWithServerHtml":11,"./lists/sort":12,"./lists/sortBinding":13,"./lists/sortRule":14,"./utils":16}],16:[function(require,module,exports){
 (function (factory) {
     if (typeof module === 'object' && typeof module.exports === 'object') {
         var v = factory(require, exports); if (v !== undefined) module.exports = v;
@@ -894,7 +839,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     }());
     exports.Utils = Utils;
 });
-},{}]},{},[2])(2)
+},{}]},{},[15])(15)
 });
 
 

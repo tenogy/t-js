@@ -1,6 +1,4 @@
-﻿import * as $ from "jquery";
-
-export class AjaxService {
+﻿export class AjaxService {
 	constructor(private config: any) {
 		this.loading = false;
 	}
@@ -66,7 +64,7 @@ export function ajax(config: any) {
 export class AjaxServices {
 	constructor(serviceEndpoints: string[]) {
 		var target = <any>this;
-		for (var endpointName of serviceEndpoints) {
+		for (var endpointName in serviceEndpoints) {
 			target[endpointName] = createServiceMethod(serviceEndpoints[endpointName]);
 		}
 	}

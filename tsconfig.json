@@ -13,6 +13,6 @@
 	},
 	"files": [
 		"./typings/index.d.ts",
-		"./src/common.ts"
+		"./src/tenogy.ts"
 	]
 }

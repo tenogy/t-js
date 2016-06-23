@@ -1,5 +1,4 @@
-﻿import * as ko from "knockout";
-import {computed, registerComputed} from "./../ko/ko-utils";
+﻿import {computed, registerComputed} from "./../ko/ko-utils";
 
 @registerComputed
 export class ListPaging {

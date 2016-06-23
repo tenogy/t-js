@@ -1,6 +1,4 @@
-﻿import * as ko from "knockout";
-
-export abstract class BaseBinding {
+﻿export abstract class BaseBinding {
 
 	init(element: HTMLElement, valueAccessor: () => any, allBindingsAccessor?: KnockoutAllBindingsAccessor, viewModel?: any, bindingContext?: KnockoutBindingContext) {
 		

@@ -141,7 +141,7 @@ declare module "lists/listWithServerHtml" {
         gotoPageHandler: any;
     }
 }
-declare module "common" {
+declare module "tenogy" {
     export * from "utils";
     export * from "ajax";
     export * from "ko/ko-utils";

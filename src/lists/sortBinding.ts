@@ -1,6 +1,4 @@
-﻿import * as ko from "knockout";
-import * as $ from "jquery";
-import {BaseBinding} from "./../ko/core/baseBinding";
+﻿import {BaseBinding} from "./../ko/core/baseBinding";
 import {SortDirection} from "./sort";
 
 export class SortBinding extends BaseBinding {

@@ -1,5 +1,4 @@
-﻿import * as ko from "knockout";
-import {computed, registerComputed} from "./ko-utils";
+﻿import {computed, registerComputed} from "./ko-utils";
 
 @registerComputed
 export class LoadingProgress {

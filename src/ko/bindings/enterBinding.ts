@@ -1,6 +1,4 @@
-﻿import * as $ from "jquery";
-import * as ko from "knockout";
-import {BaseBinding} from "./../core/baseBinding"
+﻿import {BaseBinding} from "./../core/baseBinding"
 
 export class EnterBinding extends BaseBinding {
 	init(element: HTMLElement, valueAccessor: () => any, allBindingsAccessor?: KnockoutAllBindingsAccessor, viewModel?: any, bindingContext?: KnockoutBindingContext) {

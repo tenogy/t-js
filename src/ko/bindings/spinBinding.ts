@@ -1,6 +1,4 @@
-﻿import * as ko from "knockout";
-import * as spin from "spin";
-import {BaseBinding} from "./../core/baseBinding"
+﻿import {BaseBinding} from "./../core/baseBinding"
 import {Utils} from "./../../utils"
 
 export class SpinBinding extends BaseBinding {

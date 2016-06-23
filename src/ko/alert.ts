@@ -1,6 +1,4 @@
-﻿import * as ko from "knockout";
-
-export class AlertMessage {
+﻿export class AlertMessage {
 	private type: KnockoutObservable<string>;
 	private shown: KnockoutObservable<boolean>;
 	private caption: KnockoutObservable<string>;

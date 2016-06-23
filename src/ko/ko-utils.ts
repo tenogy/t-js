@@ -1,5 +1,4 @@
-﻿import * as ko from "knockout";
-const markTemplate = "$ko$computed";
+﻿const markTemplate = "$ko$computed";
 
 export function computed(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
 	var method = target[propertyKey];

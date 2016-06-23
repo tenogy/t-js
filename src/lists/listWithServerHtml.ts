@@ -1,6 +1,4 @@
-﻿import * as ko from "knockout";
-
-export class ListWithServerHtml {
+﻿export class ListWithServerHtml {
 	constructor(items?: any, html?: string, paging?: any, options?: any) {
 		options = options || {};
 		this.items = ko.observable(items || []);
