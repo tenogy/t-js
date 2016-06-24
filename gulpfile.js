@@ -14,12 +14,12 @@ var uglify = require("gulp-uglify");
 var rename = require("gulp-rename");
 var streamify = require("gulp-streamify");
 
-var tsProject = ts.createProject("tsconfig.json");
+var tsProject = ts.createProject("./src/tsconfig.json");
 
 var b = browserify({
 		basedir: ".",
 		debug: true,
-		entries: ["src/tenogy.ts"],
+		entries: ["src/index.d.ts", "src/tenogy.ts"],
 		cache: {},
 		packageCache: {},
 		standalone: "tjs"

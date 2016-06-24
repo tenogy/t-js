@@ -1,5 +1,5 @@
 {
-  "version": "0.0.5",
+  "version": "0.0.7",
   "name": "tenogy",
   "author": "Yuriy Korpachan <korpachan@gmail.com>",
   "main": "./dist/tenogy.js",

@@ -7,12 +7,12 @@
 		"target": "es5",
 		"module": "amd",
 		"declaration": true,
-		"outFile": "./dev/tenogy.js",
+		"outFile": "./../dev/tenogy.js",
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true
 	},
 	"files": [
-		"./typings.ts",
-		"./src/tenogy.ts"
+		"index.d.ts",
+		"tenogy.ts"
 	]
 }
