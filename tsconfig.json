@@ -12,6 +12,7 @@
 		"emitDecoratorMetadata": true
 	},
 	"files": [
+		"./typings.ts",
 		"./src/tenogy.ts"
 	]
 }

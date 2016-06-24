@@ -90,7 +90,7 @@ gulp.task("dev", function () {
 gulp.task("dts", function () {
 	var tsResult = tsProject.src().pipe(sourcemaps.init()).pipe(ts(tsProject));
 
-	return tsResult.dts.pipe(rename({dirname: ""})).pipe(gulp.dest("dist"));
+	return tsResult.dts.pipe(rename(packageJson.typings)).pipe(gulp.dest("dist"));
 });
 
 

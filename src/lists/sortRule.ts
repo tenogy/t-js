@@ -8,10 +8,10 @@ export class SortRule {
 
 	subscribe(handler: any, context: any) {
 		var components = [this.type, this.direction];
-		var changes = Rx.Observable.create(observer => {
-			for (var component of components) {
-				component.subscribe((v) => { observer.onNext(v); }, null, null);
-			}
+		var changes = <any>Rx.Observable.create(function (observer) {
+			(<any>components).foreach(function (component) {
+				component.subscribe(() => { (<any>observer).onNext(); });
+			});
 		});
 		changes.debounce(10).subscribe(handler, context);
 	}

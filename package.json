@@ -1,9 +1,9 @@
 {
-  "version": "0.0.3",
+  "version": "0.0.4",
   "name": "tenogy",
   "author": "Yuriy Korpachan <korpachan@gmail.com>",
   "main": "./dist/tenogy.js",
-  "typings": "./dist/tenogy.d.ts",
+  "typings": "./dist/index.d.ts",
   "devDependencies": {
     "browserify": "^13.0.1",
     "browserify-shim": "^3.8.12",

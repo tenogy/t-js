@@ -93,6 +93,81 @@
     }
 })(function (require, exports) {
     "use strict";
+    function dateFromModel(dateModel) {
+        return dateModel ? new Date(dateModel.Year, dateModel.Month - 1, dateModel.Day) : null;
+    }
+    exports.dateFromModel = dateFromModel;
+    function dateTimeFromModel(dateModel) {
+        return dateModel ? new Date(dateModel.Year, dateModel.Month - 1, dateModel.Day, dateModel.Hour, dateModel.Minute, dateModel.Second, dateModel.Millisecond) : null;
+    }
+    exports.dateTimeFromModel = dateTimeFromModel;
+    function dateToModel(date) {
+        if (!date)
+            return null;
+        if (date.toDate) {
+            date = date.toDate();
+        }
+        return {
+            Year: date.getFullYear(),
+            Month: date.getMonth() + 1,
+            Day: date.getDate()
+        };
+    }
+    exports.dateToModel = dateToModel;
+    function dateTimeToModel(date) {
+        if (!date)
+            return null;
+        if (date.toDate) {
+            date = date.toDate();
+        }
+        return {
+            Year: date.getFullYear(),
+            Month: date.getMonth() + 1,
+            Day: date.getDate(),
+            Hour: date.getHours(),
+            Minute: date.getMinutes(),
+            Second: date.getSeconds(),
+            Millisecond: date.getMilliseconds()
+        };
+    }
+    exports.dateTimeToModel = dateTimeToModel;
+    function formatDate(date) {
+        if (!date)
+            return "";
+        if (date.toDate) {
+            date = date.toDate();
+        }
+        return date.toLocaleDateString;
+    }
+    exports.formatDate = formatDate;
+    ;
+    function formatDateTime(date) {
+        if (!date)
+            return "";
+        if (date.toDate) {
+            date = date.toDate();
+        }
+        return formatDate(date) + ", " + padZeros(date.getHours(), 2) + ":" + padZeros(date.getMinutes(), 2);
+    }
+    exports.formatDateTime = formatDateTime;
+    ;
+    function padZeros(num, size) {
+        var s = "00" + num;
+        var numStr = num + "";
+        return numStr.length >= size ? numStr : s.substr(s.length - size);
+    }
+    exports.padZeros = padZeros;
+});
+},{}],3:[function(require,module,exports){
+(function (factory) {
+    if (typeof module === 'object' && typeof module.exports === 'object') {
+        var v = factory(require, exports); if (v !== undefined) module.exports = v;
+    }
+    else if (typeof define === 'function' && define.amd) {
+        define(["require", "exports"], factory);
+    }
+})(function (require, exports) {
+    "use strict";
     var AlertMessage = (function () {
         function AlertMessage(message, caption, shown, type) {
             if (message === void 0) { message = ""; }
@@ -125,7 +200,7 @@
     }());
     exports.AlertMessage = AlertMessage;
 });
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -161,7 +236,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     exports.AlertPanelBinding = AlertPanelBinding;
     baseBinding_1.BaseBinding.register("alertPanel", AlertPanelBinding);
 });
-},{"./../core/baseBinding":7}],4:[function(require,module,exports){
+},{"./../core/baseBinding":8}],5:[function(require,module,exports){
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -202,7 +277,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     exports.AliasBinding = AliasBinding;
     baseBinding_1.BaseBinding.register("alias", AliasBinding, true);
 });
-},{"./../core/baseBinding":7}],5:[function(require,module,exports){
+},{"./../core/baseBinding":8}],6:[function(require,module,exports){
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -240,7 +315,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     exports.EnterBinding = EnterBinding;
     baseBinding_1.BaseBinding.register("enter", EnterBinding, true);
 });
-},{"./../core/baseBinding":7}],6:[function(require,module,exports){
+},{"./../core/baseBinding":8}],7:[function(require,module,exports){
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -313,7 +388,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     }
     baseBinding_1.BaseBinding.register("spin", SpinBinding);
 });
-},{"./../../utils":16,"./../core/baseBinding":7}],7:[function(require,module,exports){
+},{"./../../utils":17,"./../core/baseBinding":8}],8:[function(require,module,exports){
 (function (factory) {
     if (typeof module === 'object' && typeof module.exports === 'object') {
         var v = factory(require, exports); if (v !== undefined) module.exports = v;
@@ -348,7 +423,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     }());
     exports.BaseBinding = BaseBinding;
 });
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 (function (factory) {
     if (typeof module === 'object' && typeof module.exports === 'object') {
         var v = factory(require, exports); if (v !== undefined) module.exports = v;
@@ -421,7 +496,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         }
     }
 });
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -511,7 +586,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
         });
     }
 });
-},{"./ko-utils":8}],10:[function(require,module,exports){
+},{"./ko-utils":9}],11:[function(require,module,exports){
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -579,7 +654,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
         });
     }
 });
-},{"./../ko/ko-utils":8}],11:[function(require,module,exports){
+},{"./../ko/ko-utils":9}],12:[function(require,module,exports){
 (function (factory) {
     if (typeof module === 'object' && typeof module.exports === 'object') {
         var v = factory(require, exports); if (v !== undefined) module.exports = v;
@@ -613,7 +688,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
         });
     }
 });
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 (function (factory) {
     if (typeof module === 'object' && typeof module.exports === 'object') {
         var v = factory(require, exports); if (v !== undefined) module.exports = v;
@@ -629,7 +704,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     })(exports.SortDirection || (exports.SortDirection = {}));
     var SortDirection = exports.SortDirection;
 });
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -715,7 +790,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     exports.SortBinding = SortBinding;
     baseBinding_1.BaseBinding.register("sort", SortBinding);
 });
-},{"./../ko/core/baseBinding":7,"./sort":12}],14:[function(require,module,exports){
+},{"./../ko/core/baseBinding":8,"./sort":13}],15:[function(require,module,exports){
 (function (factory) {
     if (typeof module === 'object' && typeof module.exports === 'object') {
         var v = factory(require, exports); if (v !== undefined) module.exports = v;
@@ -734,10 +809,9 @@ var __extends = (this && this.__extends) || function (d, b) {
         SortRule.prototype.subscribe = function (handler, context) {
             var components = [this.type, this.direction];
             var changes = Rx.Observable.create(function (observer) {
-                for (var _i = 0, components_1 = components; _i < components_1.length; _i++) {
-                    var component = components_1[_i];
-                    component.subscribe(function (v) { observer.onNext(v); }, null, null);
-                }
+                components.foreach(function (component) {
+                    component.subscribe(function () { observer.onNext(); });
+                });
             });
             changes.debounce(10).subscribe(handler, context);
         };
@@ -753,13 +827,13 @@ var __extends = (this && this.__extends) || function (d, b) {
     }());
     exports.SortRule = SortRule;
 });
-},{"./sort":12}],15:[function(require,module,exports){
+},{"./sort":13}],16:[function(require,module,exports){
 (function (factory) {
     if (typeof module === 'object' && typeof module.exports === 'object') {
         var v = factory(require, exports); if (v !== undefined) module.exports = v;
     }
     else if (typeof define === 'function' && define.amd) {
-        define(["require", "exports", "./utils", "./ajax", "./ko/ko-utils", "./ko/core/baseBinding", "./ko/bindings/aliasBinding", "./ko/bindings/enterBinding", "./ko/bindings/alertPanelBinding", "./ko/bindings/spinBinding", "./ko/alert", "./ko/loadingProgress", "./lists/sort", "./lists/sortBinding", "./lists/sortRule", "./lists/listPaging", "./lists/listWithServerHtml"], factory);
+        define(["require", "exports", "./utils", "./ajax", "./dateUtils", "./ko/ko-utils", "./ko/core/baseBinding", "./ko/bindings/aliasBinding", "./ko/bindings/enterBinding", "./ko/bindings/alertPanelBinding", "./ko/bindings/spinBinding", "./ko/alert", "./ko/loadingProgress", "./lists/sort", "./lists/sortBinding", "./lists/sortRule", "./lists/listPaging", "./lists/listWithServerHtml"], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -768,6 +842,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     }
     __export(require("./utils"));
     __export(require("./ajax"));
+    __export(require("./dateUtils"));
     __export(require("./ko/ko-utils"));
     __export(require("./ko/core/baseBinding"));
     __export(require("./ko/bindings/aliasBinding"));
@@ -782,7 +857,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     __export(require("./lists/listPaging"));
     __export(require("./lists/listWithServerHtml"));
 });
-},{"./ajax":1,"./ko/alert":2,"./ko/bindings/alertPanelBinding":3,"./ko/bindings/aliasBinding":4,"./ko/bindings/enterBinding":5,"./ko/bindings/spinBinding":6,"./ko/core/baseBinding":7,"./ko/ko-utils":8,"./ko/loadingProgress":9,"./lists/listPaging":10,"./lists/listWithServerHtml":11,"./lists/sort":12,"./lists/sortBinding":13,"./lists/sortRule":14,"./utils":16}],16:[function(require,module,exports){
+},{"./ajax":1,"./dateUtils":2,"./ko/alert":3,"./ko/bindings/alertPanelBinding":4,"./ko/bindings/aliasBinding":5,"./ko/bindings/enterBinding":6,"./ko/bindings/spinBinding":7,"./ko/core/baseBinding":8,"./ko/ko-utils":9,"./ko/loadingProgress":10,"./lists/listPaging":11,"./lists/listWithServerHtml":12,"./lists/sort":13,"./lists/sortBinding":14,"./lists/sortRule":15,"./utils":17}],17:[function(require,module,exports){
 (function (factory) {
     if (typeof module === 'object' && typeof module.exports === 'object') {
         var v = factory(require, exports); if (v !== undefined) module.exports = v;
@@ -839,7 +914,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     }());
     exports.Utils = Utils;
 });
-},{}]},{},[15])(15)
+},{}]},{},[16])(16)
 });
 
 
