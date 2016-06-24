@@ -1,5 +1,6 @@
 ﻿export * from "./utils";
 export * from "./ajax";
+export * from "./dateUtils";
 
 export * from "./ko/ko-utils";
 export * from "./ko/core/baseBinding";
