@@ -1,12 +1,67 @@
-(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.tjs = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-(function (factory) {
-    if (typeof module === 'object' && typeof module.exports === 'object') {
-        var v = factory(require, exports); if (v !== undefined) module.exports = v;
-    }
-    else if (typeof define === 'function' && define.amd) {
-        define(["require", "exports"], factory);
-    }
-})(function (require, exports) {
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+define("utils", ["require", "exports"], function (require, exports) {
+    "use strict";
+    var Utils = (function () {
+        function Utils() {
+        }
+        Utils.uuid = function () {
+            var i;
+            var random;
+            var uuid = "";
+            for (i = 0; i < 32; i++) {
+                random = Math.random() * 16 | 0;
+                if (i === 8 || i === 12 || i === 16 || i === 20) {
+                    uuid += "-";
+                }
+                uuid += (i === 12 ? 4 : (i === 16 ? (random & 3 | 8) : random))
+                    .toString(16);
+            }
+            return uuid;
+        };
+        Utils.pluralize = function (count, word) {
+            return count === 1 ? word : word + "s";
+        };
+        Utils.store = function (namespace, data) {
+            if (data) {
+                return localStorage.setItem(namespace, JSON.stringify(data));
+            }
+            var store = localStorage.getItem(namespace);
+            return (store && JSON.parse(store)) || [];
+        };
+        Utils.extend = function () {
+            var objs = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                objs[_i - 0] = arguments[_i];
+            }
+            var newObj = {};
+            for (var i = 0; i < objs.length; i++) {
+                var obj = objs[i];
+                for (var key in obj) {
+                    if (obj.hasOwnProperty(key)) {
+                        newObj[key] = obj[key];
+                    }
+                }
+            }
+            return newObj;
+        };
+        return Utils;
+    }());
+    exports.Utils = Utils;
+});
+define("ajax", ["require", "exports"], function (require, exports) {
     "use strict";
     var AjaxService = (function () {
         function AjaxService(config) {
@@ -83,15 +138,7 @@
         };
     }
 });
-},{}],2:[function(require,module,exports){
-(function (factory) {
-    if (typeof module === 'object' && typeof module.exports === 'object') {
-        var v = factory(require, exports); if (v !== undefined) module.exports = v;
-    }
-    else if (typeof define === 'function' && define.amd) {
-        define(["require", "exports"], factory);
-    }
-})(function (require, exports) {
+define("dateUtils", ["require", "exports"], function (require, exports) {
     "use strict";
     function dateFromModel(dateModel) {
         return dateModel ? new Date(dateModel.Year, dateModel.Month - 1, dateModel.Day) : null;
@@ -158,282 +205,7 @@
     }
     exports.padZeros = padZeros;
 });
-},{}],3:[function(require,module,exports){
-
-},{}],4:[function(require,module,exports){
-(function (factory) {
-    if (typeof module === 'object' && typeof module.exports === 'object') {
-        var v = factory(require, exports); if (v !== undefined) module.exports = v;
-    }
-    else if (typeof define === 'function' && define.amd) {
-        define(["require", "exports"], factory);
-    }
-})(function (require, exports) {
-    "use strict";
-    var AlertMessage = (function () {
-        function AlertMessage(message, caption, shown, type) {
-            if (message === void 0) { message = ""; }
-            if (caption === void 0) { caption = ""; }
-            if (shown === void 0) { shown = false; }
-            if (type === void 0) { type = ""; }
-            this.type = ko.observable(message);
-            this.shown = ko.observable(shown);
-            this.caption = ko.observable(caption);
-            this.message = ko.observable(type);
-        }
-        AlertMessage.prototype.typeClass = function () {
-            return "alert-" + this.type();
-        };
-        AlertMessage.prototype.hide = function () {
-            this.shown(false);
-        };
-        AlertMessage.prototype.show = function (message, caption, type) {
-            if (!message && !caption)
-                return;
-            this.message(message);
-            this.caption(caption);
-            this.type(type);
-            this.shown(true);
-        };
-        AlertMessage.prototype.showError = function (message, caption) {
-            this.show(message, caption, "danger");
-        };
-        return AlertMessage;
-    }());
-    exports.AlertMessage = AlertMessage;
-});
-},{}],5:[function(require,module,exports){
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-(function (factory) {
-    if (typeof module === 'object' && typeof module.exports === 'object') {
-        var v = factory(require, exports); if (v !== undefined) module.exports = v;
-    }
-    else if (typeof define === 'function' && define.amd) {
-        define(["require", "exports", "./../core/baseBinding"], factory);
-    }
-})(function (require, exports) {
-    "use strict";
-    var baseBinding_1 = require("./../core/baseBinding");
-    var AlertPanelBinding = (function (_super) {
-        __extends(AlertPanelBinding, _super);
-        function AlertPanelBinding() {
-            _super.apply(this, arguments);
-        }
-        AlertPanelBinding.prototype.init = function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-            element.innerHTML = "<div class=\"alert\" data-bind=\"visible: shown, css: typeClass()\">" +
-                "<button type=\"button\" class=\"close\" data-bind=\"click: hide\"><span>&times;</span></button>" +
-                "<strong data-bind=\"text: caption\"></strong> " +
-                "<span data-bind=\"text: message\"></span>" +
-                "</div>";
-            var alertMessage = _super.prototype.unwrap.call(this, valueAccessor());
-            ko.applyBindingsToDescendants(alertMessage, element);
-            return { controlsDescendantBindings: true };
-        };
-        return AlertPanelBinding;
-    }(baseBinding_1.BaseBinding));
-    exports.AlertPanelBinding = AlertPanelBinding;
-    baseBinding_1.BaseBinding.register("alertPanel", AlertPanelBinding);
-});
-},{"./../core/baseBinding":9}],6:[function(require,module,exports){
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-(function (factory) {
-    if (typeof module === 'object' && typeof module.exports === 'object') {
-        var v = factory(require, exports); if (v !== undefined) module.exports = v;
-    }
-    else if (typeof define === 'function' && define.amd) {
-        define(["require", "exports", "./../core/baseBinding"], factory);
-    }
-})(function (require, exports) {
-    "use strict";
-    var baseBinding_1 = require("./../core/baseBinding");
-    var AliasBinding = (function (_super) {
-        __extends(AliasBinding, _super);
-        function AliasBinding() {
-            _super.apply(this, arguments);
-        }
-        AliasBinding.prototype.update = function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-            var aliases = valueAccessor();
-            if (!$.isArray(aliases)) {
-                aliases = [aliases];
-            }
-            aliases.foreach(function (alias) {
-                if (alias.name == null || alias.name.length === 0) {
-                    throw "Alias name is not specified.";
-                }
-                if (alias.data == null) {
-                    throw "Data is not specified for the '" + alias.name + "' alias.";
-                }
-                bindingContext[alias.name] = alias.data;
-            });
-        };
-        return AliasBinding;
-    }(baseBinding_1.BaseBinding));
-    exports.AliasBinding = AliasBinding;
-    baseBinding_1.BaseBinding.register("alias", AliasBinding, true);
-});
-},{"./../core/baseBinding":9}],7:[function(require,module,exports){
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-(function (factory) {
-    if (typeof module === 'object' && typeof module.exports === 'object') {
-        var v = factory(require, exports); if (v !== undefined) module.exports = v;
-    }
-    else if (typeof define === 'function' && define.amd) {
-        define(["require", "exports", "./../core/baseBinding"], factory);
-    }
-})(function (require, exports) {
-    "use strict";
-    var baseBinding_1 = require("./../core/baseBinding");
-    var EnterBinding = (function (_super) {
-        __extends(EnterBinding, _super);
-        function EnterBinding() {
-            _super.apply(this, arguments);
-        }
-        EnterBinding.prototype.init = function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-            var _this = this;
-            $(element).keypress(function (event) {
-                var code = event.keyCode || event.which;
-                if (code != 13)
-                    return;
-                var handler = _super.prototype.unwrap.call(_this, valueAccessor());
-                $(element).blur();
-                handler.call(viewModel);
-                event.preventDefault();
-            });
-        };
-        return EnterBinding;
-    }(baseBinding_1.BaseBinding));
-    exports.EnterBinding = EnterBinding;
-    baseBinding_1.BaseBinding.register("enter", EnterBinding, true);
-});
-},{"./../core/baseBinding":9}],8:[function(require,module,exports){
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-(function (factory) {
-    if (typeof module === 'object' && typeof module.exports === 'object') {
-        var v = factory(require, exports); if (v !== undefined) module.exports = v;
-    }
-    else if (typeof define === 'function' && define.amd) {
-        define(["require", "exports", "./../core/baseBinding", "./../../utils"], factory);
-    }
-})(function (require, exports) {
-    "use strict";
-    var baseBinding_1 = require("./../core/baseBinding");
-    var utils_1 = require("./../../utils");
-    var SpinBinding = (function (_super) {
-        __extends(SpinBinding, _super);
-        function SpinBinding() {
-            _super.apply(this, arguments);
-        }
-        SpinBinding.prototype.update = function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-            var show = _super.prototype.unwrap.call(this, valueAccessor());
-            var spinOptions = _super.prototype.unwrap.call(this, allBindingsAccessor ? allBindingsAccessor.get("spinOptions") : {}) || {};
-            var $el = element;
-            if (show) {
-                setTimeout(function () {
-                    return showSpinner($el, spinOptions);
-                }, 1);
-                return;
-            }
-            var spin = ko.utils.domData.get(element, "spin");
-            if (spin) {
-                spin.stop();
-            }
-        };
-        return SpinBinding;
-    }(baseBinding_1.BaseBinding));
-    exports.SpinBinding = SpinBinding;
-    function showSpinner(element, options) {
-        var spinOptions = {
-            lines: 13,
-            length: 28,
-            width: 14,
-            radius: 42,
-            scale: 0.25,
-            corners: 1,
-            color: '#000',
-            opacity: 0.25,
-            rotate: 0,
-            direction: 1,
-            speed: 1,
-            trail: 60,
-            fps: 20,
-            zIndex: 2e9,
-            className: 'spinner',
-            top: '0',
-            left: '50%',
-            shadow: false,
-            hwaccel: false,
-            position: 'relative'
-        };
-        spinOptions = utils_1.Utils.extend(options, spinOptions);
-        var spin = ko.utils.domData.get(element, "spin");
-        if (!spin) {
-            spin = new Spinner(spinOptions);
-            ko.utils.domData.set(element, "spin", spin);
-        }
-        spin.spin(element);
-    }
-    baseBinding_1.BaseBinding.register("spin", SpinBinding);
-});
-},{"./../../utils":18,"./../core/baseBinding":9}],9:[function(require,module,exports){
-(function (factory) {
-    if (typeof module === 'object' && typeof module.exports === 'object') {
-        var v = factory(require, exports); if (v !== undefined) module.exports = v;
-    }
-    else if (typeof define === 'function' && define.amd) {
-        define(["require", "exports"], factory);
-    }
-})(function (require, exports) {
-    "use strict";
-    var BaseBinding = (function () {
-        function BaseBinding() {
-        }
-        BaseBinding.prototype.init = function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-        };
-        BaseBinding.prototype.update = function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-        };
-        BaseBinding.prototype.preprocess = function (value, name, addBindingCallback) {
-            return value;
-        };
-        BaseBinding.prototype.unwrap = function (value) {
-            if (value == null)
-                return null;
-            return ko.utils.unwrapObservable(value);
-        };
-        BaseBinding.register = function (bindingName, bindingType, supportsVirtualElements) {
-            ko.bindingHandlers[bindingName] = new bindingType();
-            if (supportsVirtualElements) {
-                ko.virtualElements.allowedBindings[bindingName] = true;
-            }
-        };
-        return BaseBinding;
-    }());
-    exports.BaseBinding = BaseBinding;
-});
-},{}],10:[function(require,module,exports){
-(function (factory) {
-    if (typeof module === 'object' && typeof module.exports === 'object') {
-        var v = factory(require, exports); if (v !== undefined) module.exports = v;
-    }
-    else if (typeof define === 'function' && define.amd) {
-        define(["require", "exports"], factory);
-    }
-})(function (require, exports) {
+define("ko/ko-utils", ["require", "exports"], function (require, exports) {
     "use strict";
     var markTemplate = "$ko$computed";
     function computed(target, propertyKey, descriptor) {
@@ -498,26 +270,200 @@ var __extends = (this && this.__extends) || function (d, b) {
         }
     }
 });
-},{}],11:[function(require,module,exports){
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-(function (factory) {
-    if (typeof module === 'object' && typeof module.exports === 'object') {
-        var v = factory(require, exports); if (v !== undefined) module.exports = v;
-    }
-    else if (typeof define === 'function' && define.amd) {
-        define(["require", "exports", "./ko-utils"], factory);
-    }
-})(function (require, exports) {
+define("ko/core/baseBinding", ["require", "exports"], function (require, exports) {
     "use strict";
-    var ko_utils_1 = require("./ko-utils");
+    var BaseBinding = (function () {
+        function BaseBinding() {
+        }
+        BaseBinding.prototype.init = function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+        };
+        BaseBinding.prototype.update = function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+        };
+        BaseBinding.prototype.preprocess = function (value, name, addBindingCallback) {
+            return value;
+        };
+        BaseBinding.prototype.unwrap = function (value) {
+            if (value == null)
+                return null;
+            return ko.utils.unwrapObservable(value);
+        };
+        BaseBinding.register = function (bindingName, bindingType, supportsVirtualElements) {
+            ko.bindingHandlers[bindingName] = new bindingType();
+            if (supportsVirtualElements) {
+                ko.virtualElements.allowedBindings[bindingName] = true;
+            }
+        };
+        return BaseBinding;
+    }());
+    exports.BaseBinding = BaseBinding;
+});
+define("ko/bindings/aliasBinding", ["require", "exports", "ko/core/baseBinding"], function (require, exports, baseBinding_1) {
+    "use strict";
+    var AliasBinding = (function (_super) {
+        __extends(AliasBinding, _super);
+        function AliasBinding() {
+            _super.apply(this, arguments);
+        }
+        AliasBinding.prototype.update = function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+            var aliases = valueAccessor();
+            if (!$.isArray(aliases)) {
+                aliases = [aliases];
+            }
+            aliases.foreach(function (alias) {
+                if (alias.name == null || alias.name.length === 0) {
+                    throw "Alias name is not specified.";
+                }
+                if (alias.data == null) {
+                    throw "Data is not specified for the '" + alias.name + "' alias.";
+                }
+                bindingContext[alias.name] = alias.data;
+            });
+        };
+        return AliasBinding;
+    }(baseBinding_1.BaseBinding));
+    exports.AliasBinding = AliasBinding;
+    baseBinding_1.BaseBinding.register("alias", AliasBinding, true);
+});
+define("ko/bindings/enterBinding", ["require", "exports", "ko/core/baseBinding"], function (require, exports, baseBinding_2) {
+    "use strict";
+    var EnterBinding = (function (_super) {
+        __extends(EnterBinding, _super);
+        function EnterBinding() {
+            _super.apply(this, arguments);
+        }
+        EnterBinding.prototype.init = function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+            var _this = this;
+            $(element).keypress(function (event) {
+                var code = event.keyCode || event.which;
+                if (code != 13)
+                    return;
+                var handler = _super.prototype.unwrap.call(_this, valueAccessor());
+                $(element).blur();
+                handler.call(viewModel);
+                event.preventDefault();
+            });
+        };
+        return EnterBinding;
+    }(baseBinding_2.BaseBinding));
+    exports.EnterBinding = EnterBinding;
+    baseBinding_2.BaseBinding.register("enter", EnterBinding, true);
+});
+define("ko/bindings/alertPanelBinding", ["require", "exports", "ko/core/baseBinding"], function (require, exports, baseBinding_3) {
+    "use strict";
+    var AlertPanelBinding = (function (_super) {
+        __extends(AlertPanelBinding, _super);
+        function AlertPanelBinding() {
+            _super.apply(this, arguments);
+        }
+        AlertPanelBinding.prototype.init = function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+            element.innerHTML = "<div class=\"alert\" data-bind=\"visible: shown, css: typeClass()\">" +
+                "<button type=\"button\" class=\"close\" data-bind=\"click: hide\"><span>&times;</span></button>" +
+                "<strong data-bind=\"text: caption\"></strong> " +
+                "<span data-bind=\"text: message\"></span>" +
+                "</div>";
+            var alertMessage = _super.prototype.unwrap.call(this, valueAccessor());
+            ko.applyBindingsToDescendants(alertMessage, element);
+            return { controlsDescendantBindings: true };
+        };
+        return AlertPanelBinding;
+    }(baseBinding_3.BaseBinding));
+    exports.AlertPanelBinding = AlertPanelBinding;
+    baseBinding_3.BaseBinding.register("alertPanel", AlertPanelBinding);
+});
+define("ko/bindings/spinBinding", ["require", "exports", "ko/core/baseBinding", "utils"], function (require, exports, baseBinding_4, utils_1) {
+    "use strict";
+    var SpinBinding = (function (_super) {
+        __extends(SpinBinding, _super);
+        function SpinBinding() {
+            _super.apply(this, arguments);
+        }
+        SpinBinding.prototype.update = function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+            var show = _super.prototype.unwrap.call(this, valueAccessor());
+            var spinOptions = _super.prototype.unwrap.call(this, allBindingsAccessor ? allBindingsAccessor.get("spinOptions") : {}) || {};
+            var $el = element;
+            if (show) {
+                setTimeout(function () {
+                    return showSpinner($el, spinOptions);
+                }, 1);
+                return;
+            }
+            var spin = ko.utils.domData.get(element, "spin");
+            if (spin) {
+                spin.stop();
+            }
+        };
+        return SpinBinding;
+    }(baseBinding_4.BaseBinding));
+    exports.SpinBinding = SpinBinding;
+    function showSpinner(element, options) {
+        var spinOptions = {
+            lines: 13,
+            length: 28,
+            width: 14,
+            radius: 42,
+            scale: 0.25,
+            corners: 1,
+            color: '#000',
+            opacity: 0.25,
+            rotate: 0,
+            direction: 1,
+            speed: 1,
+            trail: 60,
+            fps: 20,
+            zIndex: 2e9,
+            className: 'spinner',
+            top: '0',
+            left: '50%',
+            shadow: false,
+            hwaccel: false,
+            position: 'relative'
+        };
+        spinOptions = utils_1.Utils.extend(options, spinOptions);
+        var spin = ko.utils.domData.get(element, "spin");
+        if (!spin) {
+            spin = new Spinner(spinOptions);
+            ko.utils.domData.set(element, "spin", spin);
+        }
+        spin.spin(element);
+    }
+    baseBinding_4.BaseBinding.register("spin", SpinBinding);
+});
+define("ko/alert", ["require", "exports"], function (require, exports) {
+    "use strict";
+    var AlertMessage = (function () {
+        function AlertMessage(message, caption, shown, type) {
+            if (message === void 0) { message = ""; }
+            if (caption === void 0) { caption = ""; }
+            if (shown === void 0) { shown = false; }
+            if (type === void 0) { type = ""; }
+            this.type = ko.observable(message);
+            this.shown = ko.observable(shown);
+            this.caption = ko.observable(caption);
+            this.message = ko.observable(type);
+        }
+        AlertMessage.prototype.typeClass = function () {
+            return "alert-" + this.type();
+        };
+        AlertMessage.prototype.hide = function () {
+            this.shown(false);
+        };
+        AlertMessage.prototype.show = function (message, caption, type) {
+            if (!message && !caption)
+                return;
+            this.message(message);
+            this.caption(caption);
+            this.type(type);
+            this.shown(true);
+        };
+        AlertMessage.prototype.showError = function (message, caption) {
+            this.show(message, caption, "danger");
+        };
+        return AlertMessage;
+    }());
+    exports.AlertMessage = AlertMessage;
+});
+define("ko/loadingProgress", ["require", "exports", "ko/ko-utils"], function (require, exports, ko_utils_1) {
+    "use strict";
     var LoadingProgress = (function () {
         function LoadingProgress(options) {
             var _this = this;
@@ -588,117 +534,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
         });
     }
 });
-},{"./ko-utils":10}],12:[function(require,module,exports){
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-(function (factory) {
-    if (typeof module === 'object' && typeof module.exports === 'object') {
-        var v = factory(require, exports); if (v !== undefined) module.exports = v;
-    }
-    else if (typeof define === 'function' && define.amd) {
-        define(["require", "exports", "./../ko/ko-utils"], factory);
-    }
-})(function (require, exports) {
-    "use strict";
-    var ko_utils_1 = require("./../ko/ko-utils");
-    var ListPaging = (function () {
-        function ListPaging(paging, gotoPageHandler) {
-            this.paging = ko.isObservable(paging) ?
-                ko.computed(function () { return normalizePaging.call(this, paging() || []); }, this) :
-                normalizePaging.call(this, paging || []);
-            if (!ko.isObservable(this.paging))
-                this.paging = ko.observable(this.paging);
-            this.gotoPageHandler = gotoPageHandler;
-        }
-        ListPaging.prototype.needShow = function () {
-            return this.paging().length > 1;
-        };
-        ListPaging.prototype.gotoPage = function (page) {
-            if (page.active)
-                return;
-            if (this.gotoPageHandler == null) {
-                throw "gotoPageHandler is not specified for the paging.";
-            }
-            this.gotoPageHandler(page.index);
-        };
-        __decorate([
-            ko_utils_1.computed, 
-            __metadata('design:type', Function), 
-            __metadata('design:paramtypes', []), 
-            __metadata('design:returntype', void 0)
-        ], ListPaging.prototype, "needShow", null);
-        ListPaging = __decorate([
-            ko_utils_1.registerComputed, 
-            __metadata('design:paramtypes', [Object, Object])
-        ], ListPaging);
-        return ListPaging;
-    }());
-    exports.ListPaging = ListPaging;
-    function normalizePaging(pagingItems) {
-        return pagingItems.map(function (page) { return ({
-            index: page.index || page.Index,
-            caption: page.caption || page.Caption,
-            active: page.active || page.Active
-        }); });
-    }
-    ;
-    if (!ko.components.isRegistered("list-paging")) {
-        ko.components.register("list-paging", {
-            viewModel: { createViewModel: function (params) { return new ListPaging(params.paging, params.gotoPageHandler); } },
-            template: "<div class=\"list-paging\" data-bind=\"visible: needShow, foreach: paging\">\r\n\t<a href=\"#\" class=\"btn\" data-bind=\"text: caption, click: $parent.gotoPage.bind($parent, $data), css: {'btn-primary': active, 'btn-default': !active}\"></a>\r\n</div>\r\n"
-        });
-    }
-});
-},{"./../ko/ko-utils":10}],13:[function(require,module,exports){
-(function (factory) {
-    if (typeof module === 'object' && typeof module.exports === 'object') {
-        var v = factory(require, exports); if (v !== undefined) module.exports = v;
-    }
-    else if (typeof define === 'function' && define.amd) {
-        define(["require", "exports"], factory);
-    }
-})(function (require, exports) {
-    "use strict";
-    var ListWithServerHtml = (function () {
-        function ListWithServerHtml(items, html, paging, options) {
-            options = options || {};
-            this.items = ko.observable(items || []);
-            this.itemsHtml = ko.observable(html || "");
-            this.paging = ko.observable(paging || []);
-            this.gotoPageHandler = options.gotoPageHandler;
-        }
-        return ListWithServerHtml;
-    }());
-    exports.ListWithServerHtml = ListWithServerHtml;
-    if (!ko.components.isRegistered("list-with-server-html")) {
-        ko.components.register("list-with-server-html", {
-            viewModel: {
-                createViewModel: function (params) {
-                    return ko.isObservable(params.list) ?
-                        ko.pureComputed(function () { return (params.list() || new ListWithServerHtml()); }, null) :
-                        params.list || new ListWithServerHtml();
-                }
-            },
-            template: "<!-- ko with: items -->\r\n<div class=\"list-items\" data-bind=\"html: $parent.itemsHtml\"></div>\r\n<!-- /ko -->\r\n<list-paging params=\"paging: paging, gotoPageHandler: gotoPageHandler\"></list-paging>\r\n"
-        });
-    }
-});
-},{}],14:[function(require,module,exports){
-(function (factory) {
-    if (typeof module === 'object' && typeof module.exports === 'object') {
-        var v = factory(require, exports); if (v !== undefined) module.exports = v;
-    }
-    else if (typeof define === 'function' && define.amd) {
-        define(["require", "exports"], factory);
-    }
-})(function (require, exports) {
+define("lists/sort", ["require", "exports"], function (require, exports) {
     "use strict";
     (function (SortDirection) {
         SortDirection[SortDirection["asc"] = 1] = "asc";
@@ -706,23 +542,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     })(exports.SortDirection || (exports.SortDirection = {}));
     var SortDirection = exports.SortDirection;
 });
-},{}],15:[function(require,module,exports){
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-(function (factory) {
-    if (typeof module === 'object' && typeof module.exports === 'object') {
-        var v = factory(require, exports); if (v !== undefined) module.exports = v;
-    }
-    else if (typeof define === 'function' && define.amd) {
-        define(["require", "exports", "./../ko/core/baseBinding", "./sort"], factory);
-    }
-})(function (require, exports) {
+define("lists/sortBinding", ["require", "exports", "ko/core/baseBinding", "lists/sort"], function (require, exports, baseBinding_5, sort_1) {
     "use strict";
-    var baseBinding_1 = require("./../ko/core/baseBinding");
-    var sort_1 = require("./sort");
     var SortBinding = (function (_super) {
         __extends(SortBinding, _super);
         function SortBinding() {
@@ -788,25 +609,16 @@ var __extends = (this && this.__extends) || function (d, b) {
             }
         };
         return SortBinding;
-    }(baseBinding_1.BaseBinding));
+    }(baseBinding_5.BaseBinding));
     exports.SortBinding = SortBinding;
-    baseBinding_1.BaseBinding.register("sort", SortBinding);
+    baseBinding_5.BaseBinding.register("sort", SortBinding);
 });
-},{"./../ko/core/baseBinding":9,"./sort":14}],16:[function(require,module,exports){
-(function (factory) {
-    if (typeof module === 'object' && typeof module.exports === 'object') {
-        var v = factory(require, exports); if (v !== undefined) module.exports = v;
-    }
-    else if (typeof define === 'function' && define.amd) {
-        define(["require", "exports", "./sort"], factory);
-    }
-})(function (require, exports) {
+define("lists/sortRule", ["require", "exports", "lists/sort"], function (require, exports, sort_2) {
     "use strict";
-    var sort_1 = require("./sort");
     var SortRule = (function () {
         function SortRule(type, direction) {
             this.type = ko.observable(type || null);
-            this.direction = ko.observable(direction || sort_1.SortDirection.asc);
+            this.direction = ko.observable(direction || sort_2.SortDirection.asc);
         }
         SortRule.prototype.subscribe = function (handler, context) {
             var components = [this.type, this.direction];
@@ -829,95 +641,102 @@ var __extends = (this && this.__extends) || function (d, b) {
     }());
     exports.SortRule = SortRule;
 });
-},{"./sort":14}],17:[function(require,module,exports){
-(function (factory) {
-    if (typeof module === 'object' && typeof module.exports === 'object') {
-        var v = factory(require, exports); if (v !== undefined) module.exports = v;
+define("lists/listPaging", ["require", "exports", "ko/ko-utils"], function (require, exports, ko_utils_2) {
+    "use strict";
+    var ListPaging = (function () {
+        function ListPaging(paging, gotoPageHandler) {
+            this.paging = ko.isObservable(paging) ?
+                ko.computed(function () { return normalizePaging.call(this, paging() || []); }, this) :
+                normalizePaging.call(this, paging || []);
+            if (!ko.isObservable(this.paging))
+                this.paging = ko.observable(this.paging);
+            this.gotoPageHandler = gotoPageHandler;
+        }
+        ListPaging.prototype.needShow = function () {
+            return this.paging().length > 1;
+        };
+        ListPaging.prototype.gotoPage = function (page) {
+            if (page.active)
+                return;
+            if (this.gotoPageHandler == null) {
+                throw "gotoPageHandler is not specified for the paging.";
+            }
+            this.gotoPageHandler(page.index);
+        };
+        __decorate([
+            ko_utils_2.computed, 
+            __metadata('design:type', Function), 
+            __metadata('design:paramtypes', []), 
+            __metadata('design:returntype', void 0)
+        ], ListPaging.prototype, "needShow", null);
+        ListPaging = __decorate([
+            ko_utils_2.registerComputed, 
+            __metadata('design:paramtypes', [Object, Object])
+        ], ListPaging);
+        return ListPaging;
+    }());
+    exports.ListPaging = ListPaging;
+    function normalizePaging(pagingItems) {
+        return pagingItems.map(function (page) { return ({
+            index: page.index || page.Index,
+            caption: page.caption || page.Caption,
+            active: page.active || page.Active
+        }); });
     }
-    else if (typeof define === 'function' && define.amd) {
-        define(["require", "exports", "./utils", "./ajax", "./dateUtils", "./ko/ko-utils", "./ko/core/baseBinding", "./ko/bindings/aliasBinding", "./ko/bindings/enterBinding", "./ko/bindings/alertPanelBinding", "./ko/bindings/spinBinding", "./ko/alert", "./ko/loadingProgress", "./lists/sort", "./lists/sortBinding", "./lists/sortRule", "./lists/listPaging", "./lists/listWithServerHtml"], factory);
+    ;
+    if (!ko.components.isRegistered("list-paging")) {
+        ko.components.register("list-paging", {
+            viewModel: { createViewModel: function (params) { return new ListPaging(params.paging, params.gotoPageHandler); } },
+            template: "<div class=\"list-paging\" data-bind=\"visible: needShow, foreach: paging\">\r\n\t<a href=\"#\" class=\"btn\" data-bind=\"text: caption, click: $parent.gotoPage.bind($parent, $data), css: {'btn-primary': active, 'btn-default': !active}\"></a>\r\n</div>\r\n"
+        });
     }
-})(function (require, exports) {
+});
+define("lists/listWithServerHtml", ["require", "exports"], function (require, exports) {
+    "use strict";
+    var ListWithServerHtml = (function () {
+        function ListWithServerHtml(items, html, paging, options) {
+            options = options || {};
+            this.items = ko.observable(items || []);
+            this.itemsHtml = ko.observable(html || "");
+            this.paging = ko.observable(paging || []);
+            this.gotoPageHandler = options.gotoPageHandler;
+        }
+        return ListWithServerHtml;
+    }());
+    exports.ListWithServerHtml = ListWithServerHtml;
+    if (!ko.components.isRegistered("list-with-server-html")) {
+        ko.components.register("list-with-server-html", {
+            viewModel: {
+                createViewModel: function (params) {
+                    return ko.isObservable(params.list) ?
+                        ko.pureComputed(function () { return (params.list() || new ListWithServerHtml()); }, null) :
+                        params.list || new ListWithServerHtml();
+                }
+            },
+            template: "<!-- ko with: items -->\r\n<div class=\"list-items\" data-bind=\"html: $parent.itemsHtml\"></div>\r\n<!-- /ko -->\r\n<list-paging params=\"paging: paging, gotoPageHandler: gotoPageHandler\"></list-paging>\r\n"
+        });
+    }
+});
+define("tenogy", ["require", "exports", "utils", "ajax", "dateUtils", "ko/ko-utils", "ko/core/baseBinding", "ko/bindings/aliasBinding", "ko/bindings/enterBinding", "ko/bindings/alertPanelBinding", "ko/bindings/spinBinding", "ko/alert", "ko/loadingProgress", "lists/sort", "lists/sortBinding", "lists/sortRule", "lists/listPaging", "lists/listWithServerHtml"], function (require, exports, utils_2, ajax_1, dateUtils_1, ko_utils_3, baseBinding_6, aliasBinding_1, enterBinding_1, alertPanelBinding_1, spinBinding_1, alert_1, loadingProgress_1, sort_3, sortBinding_1, sortRule_1, listPaging_1, listWithServerHtml_1) {
     "use strict";
     function __export(m) {
         for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
     }
-    __export(require("./utils"));
-    __export(require("./ajax"));
-    __export(require("./dateUtils"));
-    __export(require("./ko/ko-utils"));
-    __export(require("./ko/core/baseBinding"));
-    __export(require("./ko/bindings/aliasBinding"));
-    __export(require("./ko/bindings/enterBinding"));
-    __export(require("./ko/bindings/alertPanelBinding"));
-    __export(require("./ko/bindings/spinBinding"));
-    __export(require("./ko/alert"));
-    __export(require("./ko/loadingProgress"));
-    __export(require("./lists/sort"));
-    __export(require("./lists/sortBinding"));
-    __export(require("./lists/sortRule"));
-    __export(require("./lists/listPaging"));
-    __export(require("./lists/listWithServerHtml"));
+    __export(utils_2);
+    __export(ajax_1);
+    __export(dateUtils_1);
+    __export(ko_utils_3);
+    __export(baseBinding_6);
+    __export(aliasBinding_1);
+    __export(enterBinding_1);
+    __export(alertPanelBinding_1);
+    __export(spinBinding_1);
+    __export(alert_1);
+    __export(loadingProgress_1);
+    __export(sort_3);
+    __export(sortBinding_1);
+    __export(sortRule_1);
+    __export(listPaging_1);
+    __export(listWithServerHtml_1);
 });
-},{"./ajax":1,"./dateUtils":2,"./ko/alert":4,"./ko/bindings/alertPanelBinding":5,"./ko/bindings/aliasBinding":6,"./ko/bindings/enterBinding":7,"./ko/bindings/spinBinding":8,"./ko/core/baseBinding":9,"./ko/ko-utils":10,"./ko/loadingProgress":11,"./lists/listPaging":12,"./lists/listWithServerHtml":13,"./lists/sort":14,"./lists/sortBinding":15,"./lists/sortRule":16,"./utils":18}],18:[function(require,module,exports){
-(function (factory) {
-    if (typeof module === 'object' && typeof module.exports === 'object') {
-        var v = factory(require, exports); if (v !== undefined) module.exports = v;
-    }
-    else if (typeof define === 'function' && define.amd) {
-        define(["require", "exports"], factory);
-    }
-})(function (require, exports) {
-    "use strict";
-    var Utils = (function () {
-        function Utils() {
-        }
-        Utils.uuid = function () {
-            var i;
-            var random;
-            var uuid = "";
-            for (i = 0; i < 32; i++) {
-                random = Math.random() * 16 | 0;
-                if (i === 8 || i === 12 || i === 16 || i === 20) {
-                    uuid += "-";
-                }
-                uuid += (i === 12 ? 4 : (i === 16 ? (random & 3 | 8) : random))
-                    .toString(16);
-            }
-            return uuid;
-        };
-        Utils.pluralize = function (count, word) {
-            return count === 1 ? word : word + "s";
-        };
-        Utils.store = function (namespace, data) {
-            if (data) {
-                return localStorage.setItem(namespace, JSON.stringify(data));
-            }
-            var store = localStorage.getItem(namespace);
-            return (store && JSON.parse(store)) || [];
-        };
-        Utils.extend = function () {
-            var objs = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                objs[_i - 0] = arguments[_i];
-            }
-            var newObj = {};
-            for (var i = 0; i < objs.length; i++) {
-                var obj = objs[i];
-                for (var key in obj) {
-                    if (obj.hasOwnProperty(key)) {
-                        newObj[key] = obj[key];
-                    }
-                }
-            }
-            return newObj;
-        };
-        return Utils;
-    }());
-    exports.Utils = Utils;
-});
-},{}]},{},[3,17])(17)
-});
-
-
 //# sourceMappingURL=tenogy.js.map
