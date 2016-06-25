@@ -4,12 +4,14 @@
 		"noEmitOnError": true,
 		"removeComments": true,
 		"sourceMap": true,
+		"inlineSources": true,
 		"target": "es5",
 		"module": "amd",
 		"declaration": true,
 		"outFile": "./../dist/tenogy.js",
 		"experimentalDecorators": true,
-		"emitDecoratorMetadata": true
+		"emitDecoratorMetadata": true,
+		"pretty": true
 	},
 	"files": [
 		"index.d.ts",
