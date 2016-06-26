@@ -1,5 +1,5 @@
 {
-  "version": "0.0.8",
+  "version": "0.0.12",
   "name": "tenogy",
   "author": "Yuriy Korpachan <korpachan@gmail.com>",
   "main": "./dist/tenogy.js",
@@ -26,14 +26,16 @@
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.7.0"
   },
-	"dependencies": {
-		"@types/jquery": "^1.10.21-alpha",
-		"@types/knockout": "^3.2.22-alpha",
-		"@types/rx": "^2.5.21-alpha",
-		"@types/spin": "^2.3.20-alpha",
-		"jquery": "^3.0.0",
-		"knockout": "^3.4.0",
-		"rx": "^4.1.0",
-		"spin.js": "^2.3.2"
-	}
+  "dependencies": {
+    "@types/jquery": "^1.10.21-alpha",
+    "@types/knockout": "^3.2.22-alpha",
+    "@types/rx": "^2.5.21-alpha",
+    "@types/spin": "^2.3.20-alpha",
+    "blueimp-file-upload": "^9.12.5",
+    "jquery": "^3.0.0",
+    "knockout": "^3.4.0",
+    "rx": "^4.1.0",
+    "spin.js": "^2.3.2",
+    "summernote": "^0.8.1"
+  }
 }

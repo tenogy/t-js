@@ -85,6 +85,19 @@ declare module "ko/bindings/spinBinding" {
         update(element: HTMLElement, valueAccessor: () => any, allBindingsAccessor?: KnockoutAllBindingsAccessor, viewModel?: any, bindingContext?: KnockoutBindingContext): void;
     }
 }
+declare module "ko/bindings/summerNoteBinding" {
+    import { BaseBinding } from "ko/core/baseBinding";
+    export class SummernoteBinding extends BaseBinding {
+        init(element: HTMLElement, valueAccessor: () => any, allBindingsAccessor?: KnockoutAllBindingsAccessor, viewModel?: any, bindingContext?: KnockoutBindingContext): void;
+        update(element: HTMLElement, valueAccessor: () => any, allBindingsAccessor?: KnockoutAllBindingsAccessor, viewModel?: any, bindingContext?: KnockoutBindingContext): void;
+    }
+}
+declare module "ko/bindings/fileUploadBinding" {
+    import { BaseBinding } from "ko/core/baseBinding";
+    export class FileUploadBinding extends BaseBinding {
+        init(element: HTMLElement, valueAccessor: () => any, allBindingsAccessor?: KnockoutAllBindingsAccessor, viewModel?: any, bindingContext?: KnockoutBindingContext): void;
+    }
+}
 declare module "ko/alert" {
     export class AlertMessage {
         private type;
@@ -172,6 +185,8 @@ declare module "tenogy" {
     export * from "ko/bindings/enterBinding";
     export * from "ko/bindings/alertPanelBinding";
     export * from "ko/bindings/spinBinding";
+    export * from "ko/bindings/summerNoteBinding";
+    export * from "ko/bindings/fileUploadBinding";
     export * from "ko/alert";
     export * from "ko/loadingProgress";
     export * from "lists/sort";

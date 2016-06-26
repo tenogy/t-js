@@ -8,6 +8,8 @@ export * from "./ko/bindings/aliasBinding";
 export * from "./ko/bindings/enterBinding";
 export * from "./ko/bindings/alertPanelBinding";
 export * from "./ko/bindings/spinBinding";
+export * from "./ko/bindings/summerNoteBinding";
+export * from "./ko/bindings/fileUploadBinding";
 export * from "./ko/alert";
 export * from "./ko/loadingProgress";
 

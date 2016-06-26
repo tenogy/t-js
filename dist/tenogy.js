@@ -428,6 +428,73 @@ define("ko/bindings/spinBinding", ["require", "exports", "ko/core/baseBinding", 
     }
     baseBinding_4.BaseBinding.register("spin", SpinBinding);
 });
+define("ko/bindings/summerNoteBinding", ["require", "exports", "ko/core/baseBinding"], function (require, exports, baseBinding_5) {
+    "use strict";
+    var SummernoteBinding = (function (_super) {
+        __extends(SummernoteBinding, _super);
+        function SummernoteBinding() {
+            _super.apply(this, arguments);
+        }
+        SummernoteBinding.prototype.init = function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+            var value = valueAccessor();
+            var missingPhrases = ["<p><br></p>", "<p>&nbsp;</p>"];
+            var options = {
+                height: _super.prototype.unwrap.call(this, allBindingsAccessor.get("height")) || 100,
+                callbacks: {
+                    onChange: function (content) {
+                        ko.utils.domData.set(element, "_updating", true);
+                        value(missingPhrases.indexOf(content) > -1 ? null : content);
+                        $(element).val(content);
+                        ko.utils.domData.set(element, "_updating", false);
+                    }
+                }
+            };
+            $(element).summernote(options);
+        };
+        SummernoteBinding.prototype.update = function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+            var value = _super.prototype.unwrap.call(this, valueAccessor());
+            var updating = ko.utils.domData.get(element, "_updating");
+            if (value && !updating) {
+                $(element).summernote("code", value);
+            }
+        };
+        return SummernoteBinding;
+    }(baseBinding_5.BaseBinding));
+    exports.SummernoteBinding = SummernoteBinding;
+    baseBinding_5.BaseBinding.register("summernote", SummernoteBinding);
+});
+define("ko/bindings/fileUploadBinding", ["require", "exports", "ko/core/baseBinding"], function (require, exports, baseBinding_6) {
+    "use strict";
+    var FileUploadBinding = (function (_super) {
+        __extends(FileUploadBinding, _super);
+        function FileUploadBinding() {
+            _super.apply(this, arguments);
+        }
+        FileUploadBinding.prototype.init = function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+            var callbackDone = valueAccessor();
+            var allBindings = allBindingsAccessor();
+            var uploading = allBindings.uploading;
+            var options = {};
+            options.url = allBindings.url || "ru";
+            options.maxFileSize = allBindings.maxFileSize || 5;
+            options.acceptFileTypes = allBindings.acceptFileTypes || "";
+            options.done = function (e, data) {
+                if (uploading) {
+                    uploading(false);
+                }
+                callbackDone(data);
+            },
+                $(element).fileupload(options).on("change", function () {
+                    if (uploading) {
+                        uploading(true);
+                    }
+                });
+        };
+        return FileUploadBinding;
+    }(baseBinding_6.BaseBinding));
+    exports.FileUploadBinding = FileUploadBinding;
+    baseBinding_6.BaseBinding.register("fileupload", FileUploadBinding);
+});
 define("ko/alert", ["require", "exports"], function (require, exports) {
     "use strict";
     var AlertMessage = (function () {
@@ -542,7 +609,7 @@ define("lists/sort", ["require", "exports"], function (require, exports) {
     })(exports.SortDirection || (exports.SortDirection = {}));
     var SortDirection = exports.SortDirection;
 });
-define("lists/sortBinding", ["require", "exports", "ko/core/baseBinding", "lists/sort"], function (require, exports, baseBinding_5, sort_1) {
+define("lists/sortBinding", ["require", "exports", "ko/core/baseBinding", "lists/sort"], function (require, exports, baseBinding_7, sort_1) {
     "use strict";
     var SortBinding = (function (_super) {
         __extends(SortBinding, _super);
@@ -609,9 +676,9 @@ define("lists/sortBinding", ["require", "exports", "ko/core/baseBinding", "lists
             }
         };
         return SortBinding;
-    }(baseBinding_5.BaseBinding));
+    }(baseBinding_7.BaseBinding));
     exports.SortBinding = SortBinding;
-    baseBinding_5.BaseBinding.register("sort", SortBinding);
+    baseBinding_7.BaseBinding.register("sort", SortBinding);
 });
 define("lists/sortRule", ["require", "exports", "lists/sort"], function (require, exports, sort_2) {
     "use strict";
@@ -717,7 +784,7 @@ define("lists/listWithServerHtml", ["require", "exports"], function (require, ex
         });
     }
 });
-define("tenogy", ["require", "exports", "utils", "ajax", "dateUtils", "ko/ko-utils", "ko/core/baseBinding", "ko/bindings/aliasBinding", "ko/bindings/enterBinding", "ko/bindings/alertPanelBinding", "ko/bindings/spinBinding", "ko/alert", "ko/loadingProgress", "lists/sort", "lists/sortBinding", "lists/sortRule", "lists/listPaging", "lists/listWithServerHtml"], function (require, exports, utils_2, ajax_1, dateUtils_1, ko_utils_3, baseBinding_6, aliasBinding_1, enterBinding_1, alertPanelBinding_1, spinBinding_1, alert_1, loadingProgress_1, sort_3, sortBinding_1, sortRule_1, listPaging_1, listWithServerHtml_1) {
+define("tenogy", ["require", "exports", "utils", "ajax", "dateUtils", "ko/ko-utils", "ko/core/baseBinding", "ko/bindings/aliasBinding", "ko/bindings/enterBinding", "ko/bindings/alertPanelBinding", "ko/bindings/spinBinding", "ko/bindings/summerNoteBinding", "ko/bindings/fileUploadBinding", "ko/alert", "ko/loadingProgress", "lists/sort", "lists/sortBinding", "lists/sortRule", "lists/listPaging", "lists/listWithServerHtml"], function (require, exports, utils_2, ajax_1, dateUtils_1, ko_utils_3, baseBinding_8, aliasBinding_1, enterBinding_1, alertPanelBinding_1, spinBinding_1, summerNoteBinding_1, fileUploadBinding_1, alert_1, loadingProgress_1, sort_3, sortBinding_1, sortRule_1, listPaging_1, listWithServerHtml_1) {
     "use strict";
     function __export(m) {
         for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
@@ -726,11 +793,13 @@ define("tenogy", ["require", "exports", "utils", "ajax", "dateUtils", "ko/ko-uti
     __export(ajax_1);
     __export(dateUtils_1);
     __export(ko_utils_3);
-    __export(baseBinding_6);
+    __export(baseBinding_8);
     __export(aliasBinding_1);
     __export(enterBinding_1);
     __export(alertPanelBinding_1);
     __export(spinBinding_1);
+    __export(summerNoteBinding_1);
+    __export(fileUploadBinding_1);
     __export(alert_1);
     __export(loadingProgress_1);
     __export(sort_3);
