@@ -57,6 +57,18 @@ declare module "ko/core/baseBinding" {
         static register<T extends BaseBinding>(bindingName: string, bindingType: {
             new (): T;
         }, supportsVirtualElements?: boolean): void;
+        static registerStateful<T extends BaseBinding>(bindingName: string, bindingType: {
+            new (): T;
+        }, supportsVirtualElements?: boolean): void;
+    }
+}
+declare module "ko/core/knockoutBinding" {
+    import { BaseBinding } from "ko/core/baseBinding";
+    export abstract class KnockoutBinding extends BaseBinding {
+        constructor(bindingHandlerName: string);
+        init(element: HTMLElement, valueAccessor: () => any, allBindingsAccessor?: KnockoutAllBindingsAccessor, viewModel?: any, bindingContext?: KnockoutBindingContext): void;
+        update(element: HTMLElement, valueAccessor: () => any, allBindingsAccessor?: KnockoutAllBindingsAccessor, viewModel?: any, bindingContext?: KnockoutBindingContext): void;
+        bindingHandler: KnockoutBindingHandler;
     }
 }
 declare module "ko/bindings/aliasBinding" {
@@ -96,6 +108,12 @@ declare module "ko/bindings/fileUploadBinding" {
     import { BaseBinding } from "ko/core/baseBinding";
     export class FileUploadBinding extends BaseBinding {
         init(element: HTMLElement, valueAccessor: () => any, allBindingsAccessor?: KnockoutAllBindingsAccessor, viewModel?: any, bindingContext?: KnockoutBindingContext): void;
+    }
+}
+declare module "ko/bindings/htmlStatefulBinding" {
+    import { KnockoutBinding } from "ko/core/knockoutBinding";
+    export class HtmlStatefulBindings extends KnockoutBinding {
+        constructor();
     }
 }
 declare module "ko/alert" {
@@ -181,12 +199,14 @@ declare module "tenogy" {
     export * from "dateUtils";
     export * from "ko/ko-utils";
     export * from "ko/core/baseBinding";
+    export * from "ko/core/knockoutBinding";
     export * from "ko/bindings/aliasBinding";
     export * from "ko/bindings/enterBinding";
     export * from "ko/bindings/alertPanelBinding";
     export * from "ko/bindings/spinBinding";
     export * from "ko/bindings/summerNoteBinding";
     export * from "ko/bindings/fileUploadBinding";
+    export * from "ko/bindings/htmlStatefulBinding";
     export * from "ko/alert";
     export * from "ko/loadingProgress";
     export * from "lists/sort";

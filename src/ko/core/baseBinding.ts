@@ -24,4 +24,20 @@
 			ko.virtualElements.allowedBindings[bindingName] = true;
 		}
 	}
+
+	static registerStateful<T extends BaseBinding>(bindingName: string, bindingType: { new (): T; }, supportsVirtualElements?: boolean) {
+		// ReSharper disable once InconsistentNaming
+		var typeInstance = new bindingType();
+		ko.bindingHandlers[bindingName] = {
+			init: (element: HTMLElement, valueAccessor: () => any, allBindingsAccessor?: KnockoutAllBindingsAccessor, viewModel?: any, bindingContext?: KnockoutBindingContext) =>
+				typeInstance.init(element, valueAccessor, viewModel, bindingContext),
+			update: (element: HTMLElement, valueAccessor: () => any, allBindingsAccessor?: KnockoutAllBindingsAccessor, viewModel?: any, bindingContext?: KnockoutBindingContext) =>
+				typeInstance.update(element, valueAccessor, viewModel, bindingContext),
+			preprocess: (value: string, name: string, addBindingCallback?: (name: string, value: string) => void) =>
+				typeInstance.preprocess(value, name, addBindingCallback)
+		};
+		if (supportsVirtualElements) {
+			ko.virtualElements.allowedBindings[bindingName] = true;
+		}
+	}
 }

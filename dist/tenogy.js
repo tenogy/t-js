@@ -293,11 +293,50 @@ define("ko/core/baseBinding", ["require", "exports"], function (require, exports
                 ko.virtualElements.allowedBindings[bindingName] = true;
             }
         };
+        BaseBinding.registerStateful = function (bindingName, bindingType, supportsVirtualElements) {
+            var typeInstance = new bindingType();
+            ko.bindingHandlers[bindingName] = {
+                init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+                    return typeInstance.init(element, valueAccessor, viewModel, bindingContext);
+                },
+                update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+                    return typeInstance.update(element, valueAccessor, viewModel, bindingContext);
+                },
+                preprocess: function (value, name, addBindingCallback) {
+                    return typeInstance.preprocess(value, name, addBindingCallback);
+                }
+            };
+            if (supportsVirtualElements) {
+                ko.virtualElements.allowedBindings[bindingName] = true;
+            }
+        };
         return BaseBinding;
     }());
     exports.BaseBinding = BaseBinding;
 });
-define("ko/bindings/aliasBinding", ["require", "exports", "ko/core/baseBinding"], function (require, exports, baseBinding_1) {
+define("ko/core/knockoutBinding", ["require", "exports", "ko/core/baseBinding"], function (require, exports, baseBinding_1) {
+    "use strict";
+    var KnockoutBinding = (function (_super) {
+        __extends(KnockoutBinding, _super);
+        function KnockoutBinding(bindingHandlerName) {
+            _super.call(this);
+            this.bindingHandler = ko.bindingHandlers[bindingHandlerName];
+        }
+        KnockoutBinding.prototype.init = function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+            if (this.bindingHandler.init) {
+                this.bindingHandler.init(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext);
+            }
+        };
+        KnockoutBinding.prototype.update = function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+            if (this.bindingHandler.update) {
+                this.bindingHandler.update(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext);
+            }
+        };
+        return KnockoutBinding;
+    }(baseBinding_1.BaseBinding));
+    exports.KnockoutBinding = KnockoutBinding;
+});
+define("ko/bindings/aliasBinding", ["require", "exports", "ko/core/baseBinding"], function (require, exports, baseBinding_2) {
     "use strict";
     var AliasBinding = (function (_super) {
         __extends(AliasBinding, _super);
@@ -320,11 +359,11 @@ define("ko/bindings/aliasBinding", ["require", "exports", "ko/core/baseBinding"]
             });
         };
         return AliasBinding;
-    }(baseBinding_1.BaseBinding));
+    }(baseBinding_2.BaseBinding));
     exports.AliasBinding = AliasBinding;
-    baseBinding_1.BaseBinding.register("alias", AliasBinding, true);
+    baseBinding_2.BaseBinding.register("alias", AliasBinding, true);
 });
-define("ko/bindings/enterBinding", ["require", "exports", "ko/core/baseBinding"], function (require, exports, baseBinding_2) {
+define("ko/bindings/enterBinding", ["require", "exports", "ko/core/baseBinding"], function (require, exports, baseBinding_3) {
     "use strict";
     var EnterBinding = (function (_super) {
         __extends(EnterBinding, _super);
@@ -344,11 +383,11 @@ define("ko/bindings/enterBinding", ["require", "exports", "ko/core/baseBinding"]
             });
         };
         return EnterBinding;
-    }(baseBinding_2.BaseBinding));
+    }(baseBinding_3.BaseBinding));
     exports.EnterBinding = EnterBinding;
-    baseBinding_2.BaseBinding.register("enter", EnterBinding, true);
+    baseBinding_3.BaseBinding.register("enter", EnterBinding, true);
 });
-define("ko/bindings/alertPanelBinding", ["require", "exports", "ko/core/baseBinding"], function (require, exports, baseBinding_3) {
+define("ko/bindings/alertPanelBinding", ["require", "exports", "ko/core/baseBinding"], function (require, exports, baseBinding_4) {
     "use strict";
     var AlertPanelBinding = (function (_super) {
         __extends(AlertPanelBinding, _super);
@@ -366,11 +405,11 @@ define("ko/bindings/alertPanelBinding", ["require", "exports", "ko/core/baseBind
             return { controlsDescendantBindings: true };
         };
         return AlertPanelBinding;
-    }(baseBinding_3.BaseBinding));
+    }(baseBinding_4.BaseBinding));
     exports.AlertPanelBinding = AlertPanelBinding;
-    baseBinding_3.BaseBinding.register("alertPanel", AlertPanelBinding);
+    baseBinding_4.BaseBinding.register("alertPanel", AlertPanelBinding);
 });
-define("ko/bindings/spinBinding", ["require", "exports", "ko/core/baseBinding", "utils"], function (require, exports, baseBinding_4, utils_1) {
+define("ko/bindings/spinBinding", ["require", "exports", "ko/core/baseBinding", "utils"], function (require, exports, baseBinding_5, utils_1) {
     "use strict";
     var SpinBinding = (function (_super) {
         __extends(SpinBinding, _super);
@@ -393,7 +432,7 @@ define("ko/bindings/spinBinding", ["require", "exports", "ko/core/baseBinding", 
             }
         };
         return SpinBinding;
-    }(baseBinding_4.BaseBinding));
+    }(baseBinding_5.BaseBinding));
     exports.SpinBinding = SpinBinding;
     function showSpinner(element, options) {
         var spinOptions = {
@@ -426,9 +465,9 @@ define("ko/bindings/spinBinding", ["require", "exports", "ko/core/baseBinding", 
         }
         spin.spin(element);
     }
-    baseBinding_4.BaseBinding.register("spin", SpinBinding);
+    baseBinding_5.BaseBinding.register("spin", SpinBinding);
 });
-define("ko/bindings/summerNoteBinding", ["require", "exports", "ko/core/baseBinding"], function (require, exports, baseBinding_5) {
+define("ko/bindings/summerNoteBinding", ["require", "exports", "ko/core/baseBinding"], function (require, exports, baseBinding_6) {
     "use strict";
     var SummernoteBinding = (function (_super) {
         __extends(SummernoteBinding, _super);
@@ -459,11 +498,11 @@ define("ko/bindings/summerNoteBinding", ["require", "exports", "ko/core/baseBind
             }
         };
         return SummernoteBinding;
-    }(baseBinding_5.BaseBinding));
+    }(baseBinding_6.BaseBinding));
     exports.SummernoteBinding = SummernoteBinding;
-    baseBinding_5.BaseBinding.register("summernote", SummernoteBinding);
+    baseBinding_6.BaseBinding.register("summernote", SummernoteBinding);
 });
-define("ko/bindings/fileUploadBinding", ["require", "exports", "ko/core/baseBinding"], function (require, exports, baseBinding_6) {
+define("ko/bindings/fileUploadBinding", ["require", "exports", "ko/core/baseBinding"], function (require, exports, baseBinding_7) {
     "use strict";
     var FileUploadBinding = (function (_super) {
         __extends(FileUploadBinding, _super);
@@ -491,9 +530,21 @@ define("ko/bindings/fileUploadBinding", ["require", "exports", "ko/core/baseBind
                 });
         };
         return FileUploadBinding;
-    }(baseBinding_6.BaseBinding));
+    }(baseBinding_7.BaseBinding));
     exports.FileUploadBinding = FileUploadBinding;
-    baseBinding_6.BaseBinding.register("fileupload", FileUploadBinding);
+    baseBinding_7.BaseBinding.register("fileupload", FileUploadBinding);
+});
+define("ko/bindings/htmlStatefulBinding", ["require", "exports", "ko/core/knockoutBinding"], function (require, exports, knockoutBinding_1) {
+    "use strict";
+    var HtmlStatefulBindings = (function (_super) {
+        __extends(HtmlStatefulBindings, _super);
+        function HtmlStatefulBindings() {
+            _super.call(this, "html");
+        }
+        return HtmlStatefulBindings;
+    }(knockoutBinding_1.KnockoutBinding));
+    exports.HtmlStatefulBindings = HtmlStatefulBindings;
+    knockoutBinding_1.KnockoutBinding.registerStateful("htmlStateful", HtmlStatefulBindings);
 });
 define("ko/alert", ["require", "exports"], function (require, exports) {
     "use strict";
@@ -609,7 +660,7 @@ define("lists/sort", ["require", "exports"], function (require, exports) {
     })(exports.SortDirection || (exports.SortDirection = {}));
     var SortDirection = exports.SortDirection;
 });
-define("lists/sortBinding", ["require", "exports", "ko/core/baseBinding", "lists/sort"], function (require, exports, baseBinding_7, sort_1) {
+define("lists/sortBinding", ["require", "exports", "ko/core/baseBinding", "lists/sort"], function (require, exports, baseBinding_8, sort_1) {
     "use strict";
     var SortBinding = (function (_super) {
         __extends(SortBinding, _super);
@@ -676,9 +727,9 @@ define("lists/sortBinding", ["require", "exports", "ko/core/baseBinding", "lists
             }
         };
         return SortBinding;
-    }(baseBinding_7.BaseBinding));
+    }(baseBinding_8.BaseBinding));
     exports.SortBinding = SortBinding;
-    baseBinding_7.BaseBinding.register("sort", SortBinding);
+    baseBinding_8.BaseBinding.register("sort", SortBinding);
 });
 define("lists/sortRule", ["require", "exports", "lists/sort"], function (require, exports, sort_2) {
     "use strict";
@@ -780,11 +831,11 @@ define("lists/listWithServerHtml", ["require", "exports"], function (require, ex
                         params.list || new ListWithServerHtml();
                 }
             },
-            template: "<!-- ko with: items -->\r\n<div class=\"list-items\" data-bind=\"html: $parent.itemsHtml\"></div>\r\n<!-- /ko -->\r\n<list-paging params=\"paging: paging, gotoPageHandler: gotoPageHandler\"></list-paging>\r\n"
+            template: "<!-- ko with: items -->\r\n<div class=\"list-items\" data-bind=\"htmlStateful: $parent.itemsHtml\"></div>\r\n<!-- /ko -->\r\n<list-paging params=\"paging: paging, gotoPageHandler: gotoPageHandler\"></list-paging>\r\n"
         });
     }
 });
-define("tenogy", ["require", "exports", "utils", "ajax", "dateUtils", "ko/ko-utils", "ko/core/baseBinding", "ko/bindings/aliasBinding", "ko/bindings/enterBinding", "ko/bindings/alertPanelBinding", "ko/bindings/spinBinding", "ko/bindings/summerNoteBinding", "ko/bindings/fileUploadBinding", "ko/alert", "ko/loadingProgress", "lists/sort", "lists/sortBinding", "lists/sortRule", "lists/listPaging", "lists/listWithServerHtml"], function (require, exports, utils_2, ajax_1, dateUtils_1, ko_utils_3, baseBinding_8, aliasBinding_1, enterBinding_1, alertPanelBinding_1, spinBinding_1, summerNoteBinding_1, fileUploadBinding_1, alert_1, loadingProgress_1, sort_3, sortBinding_1, sortRule_1, listPaging_1, listWithServerHtml_1) {
+define("tenogy", ["require", "exports", "utils", "ajax", "dateUtils", "ko/ko-utils", "ko/core/baseBinding", "ko/core/knockoutBinding", "ko/bindings/aliasBinding", "ko/bindings/enterBinding", "ko/bindings/alertPanelBinding", "ko/bindings/spinBinding", "ko/bindings/summerNoteBinding", "ko/bindings/fileUploadBinding", "ko/bindings/htmlStatefulBinding", "ko/alert", "ko/loadingProgress", "lists/sort", "lists/sortBinding", "lists/sortRule", "lists/listPaging", "lists/listWithServerHtml"], function (require, exports, utils_2, ajax_1, dateUtils_1, ko_utils_3, baseBinding_9, knockoutBinding_2, aliasBinding_1, enterBinding_1, alertPanelBinding_1, spinBinding_1, summerNoteBinding_1, fileUploadBinding_1, htmlStatefulBinding_1, alert_1, loadingProgress_1, sort_3, sortBinding_1, sortRule_1, listPaging_1, listWithServerHtml_1) {
     "use strict";
     function __export(m) {
         for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
@@ -793,13 +844,15 @@ define("tenogy", ["require", "exports", "utils", "ajax", "dateUtils", "ko/ko-uti
     __export(ajax_1);
     __export(dateUtils_1);
     __export(ko_utils_3);
-    __export(baseBinding_8);
+    __export(baseBinding_9);
+    __export(knockoutBinding_2);
     __export(aliasBinding_1);
     __export(enterBinding_1);
     __export(alertPanelBinding_1);
     __export(spinBinding_1);
     __export(summerNoteBinding_1);
     __export(fileUploadBinding_1);
+    __export(htmlStatefulBinding_1);
     __export(alert_1);
     __export(loadingProgress_1);
     __export(sort_3);

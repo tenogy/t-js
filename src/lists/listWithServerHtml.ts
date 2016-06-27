@@ -25,7 +25,7 @@ if (!ko.components.isRegistered("list-with-server-html")) {
 						params.list || new ListWithServerHtml();
 				}
 			},
-			template: "<!-- ko with: items -->\r\n<div class=\"list-items\" data-bind=\"html: $parent.itemsHtml\"></div>\r\n<!-- /ko -->\r\n<list-paging params=\"paging: paging, gotoPageHandler: gotoPageHandler\"></list-paging>\r\n"
+			template: "<!-- ko with: items -->\r\n<div class=\"list-items\" data-bind=\"htmlStateful: $parent.itemsHtml\"></div>\r\n<!-- /ko -->\r\n<list-paging params=\"paging: paging, gotoPageHandler: gotoPageHandler\"></list-paging>\r\n"
 		}
 	);
 }
