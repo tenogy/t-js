@@ -6,12 +6,12 @@ export class SortRule {
 		this.direction = ko.observable(direction || SortDirection.asc);
 	}
 
-	subscribe(handler: any, context: any) {
+	subscribe(handler: any, context?: any) {
 		var components = [this.type, this.direction];
-		var changes = <any>Rx.Observable.create(function (observer) {
-			(<any>components).foreach(function (component) {
-				component.subscribe(() => { (<any>observer).onNext(); });
-			});
+		var changes = <any>Rx.Observable.create(observer => {
+			for (var component of components) {
+				(<any>component).subscribe(() => { (<any>observer).onNext(); });
+			}
 		});
 		changes.debounce(10).subscribe(handler, context);
 	}

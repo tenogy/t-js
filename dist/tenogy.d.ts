@@ -166,7 +166,7 @@ declare module "lists/sortRule" {
     import { SortDirection } from "lists/sort";
     export class SortRule {
         constructor(type?: any, direction?: SortDirection);
-        subscribe(handler: any, context: any): void;
+        subscribe(handler: any, context?: any): void;
         toModel(options: any): {
             Type: any;
             Direction: any;

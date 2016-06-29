@@ -741,9 +741,10 @@ define("lists/sortRule", ["require", "exports", "lists/sort"], function (require
         SortRule.prototype.subscribe = function (handler, context) {
             var components = [this.type, this.direction];
             var changes = Rx.Observable.create(function (observer) {
-                components.foreach(function (component) {
+                for (var _i = 0, components_1 = components; _i < components_1.length; _i++) {
+                    var component = components_1[_i];
                     component.subscribe(function () { observer.onNext(); });
-                });
+                }
             });
             changes.debounce(10).subscribe(handler, context);
         };
