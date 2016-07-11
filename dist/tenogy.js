@@ -184,7 +184,7 @@ define("dateUtils", ["require", "exports"], function (require, exports) {
         if (date.toDate) {
             date = date.toDate();
         }
-        return date.toLocaleDateString;
+        return date.toLocaleDateString();
     }
     exports.formatDate = formatDate;
     ;
@@ -348,7 +348,8 @@ define("ko/bindings/aliasBinding", ["require", "exports", "ko/core/baseBinding"]
             if (!$.isArray(aliases)) {
                 aliases = [aliases];
             }
-            aliases.foreach(function (alias) {
+            for (var _i = 0, aliases_1 = aliases; _i < aliases_1.length; _i++) {
+                var alias = aliases_1[_i];
                 if (alias.name == null || alias.name.length === 0) {
                     throw "Alias name is not specified.";
                 }
@@ -356,7 +357,7 @@ define("ko/bindings/aliasBinding", ["require", "exports", "ko/core/baseBinding"]
                     throw "Data is not specified for the '" + alias.name + "' alias.";
                 }
                 bindingContext[alias.name] = alias.data;
-            });
+            }
         };
         return AliasBinding;
     }(baseBinding_2.BaseBinding));

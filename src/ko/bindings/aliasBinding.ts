@@ -6,8 +6,7 @@ export class AliasBinding extends BaseBinding {
 		if (!$.isArray(aliases)) {
 			aliases = [aliases];
 		}
-
-		aliases.foreach((alias: any) => {
+		for (var alias of aliases) {
 			if (alias.name == null || alias.name.length === 0) {
 				throw "Alias name is not specified.";
 			}
@@ -15,7 +14,7 @@ export class AliasBinding extends BaseBinding {
 				throw "Data is not specified for the '" + alias.name + "' alias.";
 			}
 			bindingContext[alias.name] = alias.data;
-		});
+		}
 	}
 }
 

@@ -39,7 +39,7 @@ export function formatDate(date) {
 	if (date.toDate) {
 		date = date.toDate();
 	}
-	return date.toLocaleDateString;
+	return date.toLocaleDateString();
 };
 
 
