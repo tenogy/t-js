@@ -2,3 +2,4 @@ node_modules/
 .bowerrc
 
 dev/
+/vs/.vs

@@ -8,7 +8,7 @@
 		"target": "es5",
 		"module": "amd",
 		"declaration": true,
-		"outFile": "./../dist/tenogy.js",
+		"outDir": "./../dist/",
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true,
 		"pretty": true

@@ -45,7 +45,7 @@ function showSpinner(element: HTMLElement, options: any) {
 		, hwaccel: false // Whether to use hardware acceleration
 		, position: 'relative' // Element positioning
 	}
-	spinOptions = Utils.extend(options, spinOptions);
+	spinOptions = Utils.extend(spinOptions, options);
 
 	var spin = ko.utils.domData.get(element, "spin");
 	if (!spin) {

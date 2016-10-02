@@ -32,7 +32,7 @@
 
 	success(data: any, textStatus: any, jqxhr: any) {
 		if (data.redirect && !this.config.ignoreRedirect) {
-			window.location = data.redirect;
+			window.location.replace(data.redirect);
 			return;
 		}
 		this.runCallback(data, textStatus, jqxhr);
