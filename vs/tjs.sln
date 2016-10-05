@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "t-js(1)", "..\", "{A94578BC-F9FA-4E54-8D56-DEBECF7C735A}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "t-js", "..\", "{C4D20AE5-84A2-46B5-BC5C-F81A1B3F1BDF}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_19224"
@@ -27,10 +27,13 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A94578BC-F9FA-4E54-8D56-DEBECF7C735A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A94578BC-F9FA-4E54-8D56-DEBECF7C735A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4D20AE5-84A2-46B5-BC5C-F81A1B3F1BDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4D20AE5-84A2-46B5-BC5C-F81A1B3F1BDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4D20AE5-84A2-46B5-BC5C-F81A1B3F1BDF}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4D20AE5-84A2-46B5-BC5C-F81A1B3F1BDF}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

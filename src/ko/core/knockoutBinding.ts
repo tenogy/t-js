@@ -1,4 +1,4 @@
-﻿import {BaseBinding} from "baseBinding"
+﻿import {BaseBinding} from "./baseBinding"
 
 export abstract class KnockoutBinding extends BaseBinding {
 	constructor(bindingHandlerName: string) {
