@@ -1,17 +1,17 @@
 {
+	"compileOnSave": false,
 	"compilerOptions": {
+		"module": "amd",
+		"sourceMap": false,
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
 		"noImplicitAny": false,
 		"noEmitOnError": true,
 		"removeComments": true,
-		"sourceMap": true,
-		"inlineSources": true,
-		"target": "es5",
-		"module": "amd",
+		"preserveConstEnums": true,
 		"declaration": true,
-		"outDir": "./../dist/",
-		"experimentalDecorators": true,
-		"emitDecoratorMetadata": true,
-		"pretty": true
+		"out": "../dist/index.js",
+		"target": "es5"
 	},
 	"files": [
 		"index.d.ts",
