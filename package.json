@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0",
+  "version": "0.1.1",
   "name": "tenogy",
   "author": "Yuriy Korpachan <korpachan@gmail.com>",
   "main": "./dist/tenogy.js",
@@ -22,7 +22,8 @@
     "spin.js": "^2.3.2",
     "summernote": "^0.8.1"
   },
-  "scripts": {
-    "build": "webpack && webpack -p"
-  }
+	"scripts": {
+		"d": "tsc -p src\\ts-d.json -d && del dist\\index.js",
+		"build": "webpack && webpack -p && npm run d"
+	}
 }

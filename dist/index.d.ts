@@ -1,3 +1,4 @@
+/// <reference types="knockout" />
 declare module "utils" {
     export class Utils {
         static uuid(): string;
@@ -214,4 +215,6 @@ declare module "tenogy" {
     export * from "lists/sortRule";
     export * from "lists/listPaging";
     export * from "lists/listWithServerHtml";
+    export function i(moduleName: string, exports: (m) => void): void;
+    export function applyBindings(model: any, query: string): void;
 }

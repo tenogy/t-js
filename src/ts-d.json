@@ -8,11 +8,9 @@
 		"noEmitOnError": true,
 		"removeComments": true,
 		"preserveConstEnums": true,
-		"module": "commonjs",
-		"moduleResolution": "classic",
-		//"module": "amd",
-		//"declaration": true,
-		//"out": "../dist/index.js",
+		"module": "amd",
+		"declaration": true,
+		"outFile": "../dist/index.js",
 		"target": "es5"
 	},
 	"files": [

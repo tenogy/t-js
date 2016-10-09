@@ -21,3 +21,13 @@ export * from "./lists/sortBinding";
 export * from "./lists/sortRule";
 export * from "./lists/listPaging";
 export * from "./lists/listWithServerHtml";
+
+export function i(moduleName: string, exports: (m)=>void) {
+	document.addEventListener("DOMContentLoaded", () => {
+		exports(window["_app_"][moduleName]);
+	});
+}
+
+export function applyBindings(model, query: string) {
+	ko.applyBindings(model, document.querySelector(query));
+}
