@@ -12,6 +12,7 @@ export * from "./ko/bindings/spinBinding";
 export * from "./ko/bindings/summerNoteBinding";
 export * from "./ko/bindings/fileUploadBinding";
 export * from "./ko/bindings/htmlStatefulBinding";
+export * from "./ko/bindings/select2Binding";
 
 export * from "./ko/alert";
 export * from "./ko/loadingProgress";

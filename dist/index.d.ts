@@ -1,4 +1,6 @@
 /// <reference types="knockout" />
+/// <reference types="jquery" />
+/// <reference types="select2" />
 declare module "utils" {
     export class Utils {
         static uuid(): string;
@@ -117,6 +119,24 @@ declare module "ko/bindings/htmlStatefulBinding" {
         constructor();
     }
 }
+declare module "ko/bindings/select2Binding" {
+    import { BaseBinding } from "ko/core/baseBinding";
+    export class Select2Binding extends BaseBinding {
+        private selectedValue;
+        private config;
+        constructor();
+        init(element: HTMLElement, valueAccessor: () => any, allBindingsAccessor?: KnockoutAllBindingsAccessor): void;
+        updateBinding(element: HTMLElement, valueAccessor: () => any): void;
+        updateValue($element: JQuery, selectedValue: any): void;
+        updateSingleValue($element: JQuery, selectedValue: any): void;
+        updateMultipleValue($element: JQuery, selectedValue: any): void;
+        updateSingleElementValue($element: JQuery, value: any): void;
+        updateMultipleElementValue($element: JQuery, value: any): void;
+        getData(value: any, optionsText: string, optionsValue: string): any;
+        proccessAllBindings($element: JQuery, allBindings: any): void;
+        sort($element: JQuery, data: any): any;
+    }
+}
 declare module "ko/alert" {
     export class AlertMessage {
         private type;
@@ -208,6 +228,7 @@ declare module "tenogy" {
     export * from "ko/bindings/summerNoteBinding";
     export * from "ko/bindings/fileUploadBinding";
     export * from "ko/bindings/htmlStatefulBinding";
+    export * from "ko/bindings/select2Binding";
     export * from "ko/alert";
     export * from "ko/loadingProgress";
     export * from "lists/sort";

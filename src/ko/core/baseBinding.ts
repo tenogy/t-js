@@ -30,9 +30,9 @@
 		var typeInstance = new bindingType();
 		ko.bindingHandlers[bindingName] = {
 			init: (element: HTMLElement, valueAccessor: () => any, allBindingsAccessor?: KnockoutAllBindingsAccessor, viewModel?: any, bindingContext?: KnockoutBindingContext) =>
-				typeInstance.init(element, valueAccessor, viewModel, bindingContext),
+				typeInstance.init(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext),
 			update: (element: HTMLElement, valueAccessor: () => any, allBindingsAccessor?: KnockoutAllBindingsAccessor, viewModel?: any, bindingContext?: KnockoutBindingContext) =>
-				typeInstance.update(element, valueAccessor, viewModel, bindingContext),
+				typeInstance.update(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext),
 			preprocess: (value: string, name: string, addBindingCallback?: (name: string, value: string) => void) =>
 				typeInstance.preprocess(value, name, addBindingCallback)
 		};
