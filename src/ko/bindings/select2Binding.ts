@@ -13,8 +13,8 @@ export class Select2Binding extends BaseBinding {
 
 	init(element: HTMLElement, valueAccessor: () => any, allBindingsAccessor?: KnockoutAllBindingsAccessor) {
 		const $element = $(element);
-		const selectedValue = valueAccessor();
 
+		let selectedValue = valueAccessor();
 		this.proccessAllBindings($element, allBindingsAccessor() || {});
 
 		ko.utils.domNodeDisposal.addDisposeCallback(element, () => { $element.select2("destroy"); });

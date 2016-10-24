@@ -1,4 +1,6 @@
-﻿const libraryName = "tenogy",
+﻿'use strict';
+
+const libraryName = "tenogy",
 	p = process.argv.indexOf("-p") !== -1;
 
 module.exports = {
