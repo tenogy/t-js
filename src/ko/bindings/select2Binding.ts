@@ -44,7 +44,7 @@ export class Select2Binding extends BaseBinding {
 		resolveKeyPressIssue(select2);
 	}
 
-	updateBinding(element: HTMLElement, valueAccessor: () => any) {
+	update(element: HTMLElement, valueAccessor: () => any) {
 		const $element = $(element);
 		const value = this.unwrap(valueAccessor());
 		if (this.config.multiple) {

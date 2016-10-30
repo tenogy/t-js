@@ -780,7 +780,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var select2 = $element.select2(select2Options).data("select2");
 	        resolveKeyPressIssue(select2);
 	    };
-	    Select2Binding.prototype.updateBinding = function (element, valueAccessor) {
+	    Select2Binding.prototype.update = function (element, valueAccessor) {
 	        var $element = $(element);
 	        var value = this.unwrap(valueAccessor());
 	        if (this.config.multiple) {

@@ -126,7 +126,7 @@ declare module "ko/bindings/select2Binding" {
         private config;
         constructor();
         init(element: HTMLElement, valueAccessor: () => any, allBindingsAccessor?: KnockoutAllBindingsAccessor): void;
-        updateBinding(element: HTMLElement, valueAccessor: () => any): void;
+        update(element: HTMLElement, valueAccessor: () => any): void;
         updateValue($element: JQuery, selectedValue: any): void;
         updateSingleValue($element: JQuery, selectedValue: any): void;
         updateMultipleValue($element: JQuery, selectedValue: any): void;
