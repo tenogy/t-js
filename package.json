@@ -1,5 +1,5 @@
 {
-  "version": "0.1.4",
+  "version": "0.1.5",
   "name": "tenogy",
   "author": "Yuriy Korpachan <korpachan@gmail.com>",
   "main": "./dist/tenogy.js",
@@ -19,6 +19,7 @@
     "blueimp-file-upload": "^9.12.5",
     "jquery": "^3.0.0",
     "knockout": "^3.4.0",
+    "knockout.validation": "^2.0.3",
     "rx": "^4.1.0",
     "select2": "^4.0.3",
     "spin.js": "^2.3.2",
