@@ -1,9 +1,17 @@
-﻿export function dateFromModel(dateModel) {
-	return dateModel ? new Date(dateModel.Year, dateModel.Month - 1, dateModel.Day) : null;
+﻿function checkDefault(v1, v2, defaultV?) {
+	return v1 === undefined ? v2 || (defaultV || 0) : v1;
+}
+
+export function dateFromModel(dateModel) {
+	const dm = dateModel;
+	return dm ? new Date(checkDefault(dm.Year, dm.year), checkDefault(dm.Month, dm.month) - 1, checkDefault(dm.Day, dm.day)) : null;
 }
 
 export function dateTimeFromModel(dateModel) {
-	return dateModel ? new Date(dateModel.Year, dateModel.Month - 1, dateModel.Day, dateModel.Hour, dateModel.Minute, dateModel.Second, dateModel.Millisecond) : null;
+	const dm = dateModel;
+	return dateModel ? new Date(checkDefault(dm.Year, dm.year), checkDefault(dm.Month, dm.month) - 1, checkDefault(dm.Day, dm.day),
+		checkDefault(dm.Hour, dm.hour), checkDefault(dm.Minute, dm.minute), checkDefault(dm.Second, dm.second), checkDefault(dm.Millisecond, dm.millisecond)
+	) : null;
 }
 
 export function dateToModel(date) {
