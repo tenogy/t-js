@@ -214,6 +214,18 @@ declare module "lists/listWithServerHtml" {
         gotoPageHandler: any;
     }
 }
+declare module "ko/validation/validationScope" {
+    export class ValidationScope {
+        validatables: KnockoutObservableArray<any>;
+        errors: KnockoutObservableArray<any>;
+        constructor(observables: any);
+        add(observable: any): void;
+        isValid(): boolean;
+        showErrors(): void;
+        hideErrors(): void;
+        validate(showErrors: any): boolean;
+    }
+}
 declare module "tenogy" {
     export * from "utils";
     export * from "ajax";
@@ -236,6 +248,7 @@ declare module "tenogy" {
     export * from "lists/sortRule";
     export * from "lists/listPaging";
     export * from "lists/listWithServerHtml";
+    export * from "ko/validation/validationScope";
     export function i(moduleName: string, exports: (m) => void): void;
     export function applyBindings(model: any, query: string): void;
 }

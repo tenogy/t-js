@@ -86,6 +86,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	__export(__webpack_require__(20));
 	__export(__webpack_require__(21));
 	__export(__webpack_require__(22));
+	__export(__webpack_require__(23));
 	function i(moduleName, exports) {
 	    document.addEventListener("DOMContentLoaded", function () {
 	        exports(window["_app_"][moduleName]);
@@ -1291,6 +1292,81 @@ return /******/ (function(modules) { // webpackBootstrap
 	        template: "<!-- ko with: items -->\r\n<div class=\"list-items\" data-bind=\"htmlStateful: $parent.itemsHtml\"></div>\r\n<!-- /ko -->\r\n<list-paging params=\"paging: paging, gotoPageHandler: gotoPageHandler\"></list-paging>\r\n"
 	    });
 	}
+
+
+/***/ },
+/* 23 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ko_utils_1 = __webpack_require__(5);
+	var ValidationScope = (function () {
+	    function ValidationScope(observables) {
+	        var _this = this;
+	        this.validatables = ko.observableArray([]);
+	        ko.utils.arrayForEach(observables, function (observable) {
+	            _this.add(observable);
+	        });
+	        this.errors = ko.observableArray([]);
+	    }
+	    ValidationScope.prototype.add = function (observable) {
+	        if (observable && !observable.nodeType) {
+	            if (!observable.isValid) {
+	                observable.extend({ validatable: true });
+	            }
+	            this.validatables.push(observable);
+	        }
+	        ;
+	    };
+	    ValidationScope.prototype.isValid = function () {
+	        var errors = [];
+	        ko.utils.arrayForEach(this.validatables(), function (observable) {
+	            if (!observable.isValid()) {
+	                errors.push(observable.error);
+	            }
+	        });
+	        this.errors(errors);
+	        return errors.length === 0;
+	    };
+	    ValidationScope.prototype.showErrors = function () {
+	        ko.utils.arrayForEach(this.validatables(), function (observable) {
+	            observable.isModified(true);
+	        });
+	    };
+	    ValidationScope.prototype.hideErrors = function () {
+	        ko.utils.arrayForEach(this.validatables(), function (observable) {
+	            observable.isModified(false);
+	        });
+	    };
+	    ValidationScope.prototype.validate = function (showErrors) {
+	        var isValid = this.isValid();
+	        if (showErrors && !isValid) {
+	            this.showErrors();
+	        }
+	        return isValid;
+	    };
+	    return ValidationScope;
+	}());
+	__decorate([
+	    ko_utils_1.computed,
+	    __metadata("design:type", Function),
+	    __metadata("design:paramtypes", []),
+	    __metadata("design:returntype", void 0)
+	], ValidationScope.prototype, "isValid", null);
+	ValidationScope = __decorate([
+	    ko_utils_1.registerComputed,
+	    __metadata("design:paramtypes", [Object])
+	], ValidationScope);
+	exports.ValidationScope = ValidationScope;
 
 
 /***/ }
