@@ -1,5 +1,5 @@
-﻿import {BaseBinding} from "./../core/baseBinding"
-import {Utils} from "./../../utils"
+﻿import {BaseBinding} from "./../core/baseBinding";
+import * as u from "./../../utils";
 
 export class SpinBinding extends BaseBinding {
 	update(element: HTMLElement, valueAccessor: () => any, allBindingsAccessor?: KnockoutAllBindingsAccessor, viewModel?: any, bindingContext?: KnockoutBindingContext) {
@@ -45,7 +45,7 @@ function showSpinner(element: HTMLElement, options: any) {
 		, hwaccel: false // Whether to use hardware acceleration
 		, position: 'relative' // Element positioning
 	}
-	spinOptions = Utils.extend(spinOptions, options);
+	spinOptions = u.extend(spinOptions, options);
 
 	var spin = ko.utils.domData.get(element, "spin");
 	if (!spin) {

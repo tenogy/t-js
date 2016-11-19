@@ -1,5 +1,4 @@
-﻿import {BaseBinding} from "./../core/baseBinding"
-import {Utils} from "./../../utils"
+﻿import {BaseBinding} from "./../core/baseBinding";
 
 export class FileUploadBinding extends BaseBinding {
 	init(element: HTMLElement, valueAccessor: () => any, allBindingsAccessor?: KnockoutAllBindingsAccessor, viewModel?: any, bindingContext?: KnockoutBindingContext) {

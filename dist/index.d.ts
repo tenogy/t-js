@@ -2,12 +2,16 @@
 /// <reference types="jquery" />
 /// <reference types="select2" />
 declare module "utils" {
-    export class Utils {
-        static uuid(): string;
-        static pluralize(count: number, word: string): string;
-        static store(namespace: string, data?: string): any;
-        static extend(...objs: any[]): any;
-    }
+    export function has(obj: any, property: any): any;
+    export function contains(obj: any, property: any): any;
+    export function eachKey(obj: any, f: (string) => void): void;
+    export function extend(dest: any, src: any): any;
+    export function isString(s: any): boolean;
+    export function isObject(obj: any): boolean;
+    export function undef(value: any): boolean;
+    export function def(value: any): boolean;
+    export function isNull(value: any): boolean;
+    export function isUndefinedOrNull(value: any): boolean;
 }
 declare module "ajax" {
     export class AjaxService {

@@ -12,7 +12,7 @@
 			data: this.config.data,
 			contentType: <string>null,
 			dataType: <string>null,
-			headers: { RequestVerificationToken: <string>null }
+			headers: { RequestVerificationToken: $("input[name='__RequestVerificationToken']").val() }
 		};
 		if (this.config.json) {
 			options.contentType = "application/json";

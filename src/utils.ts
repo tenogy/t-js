@@ -1,51 +1,50 @@
-﻿export class Utils {
+﻿const hasOwnProperty = Object.prototype.hasOwnProperty;
 
-	// generates a new Universally unique identify (UUID) 
-	// the UUID is used to identify each of the tasks
-	static uuid(): string {
-		/*jshint bitwise:false */
-		let i: number;
-		let random: number;
-		let uuid = "";
+export function has(obj, property) {
+	return hasOwnProperty.call(obj, property);
+};
 
-		for (i = 0; i < 32; i++) {
-			random = Math.random() * 16 | 0;
-			if (i === 8 || i === 12 || i === 16 || i === 20) {
-				uuid += "-";
-			}
-			uuid += (i === 12 ? 4 : (i === 16 ? (random & 3 | 8) : random))
-				.toString(16);
+export function contains(obj, property) {
+	if (!obj.indexOf) {
+		return has(obj, property);
+	}
+	return obj.indexOf(property) > -1;
+};
+
+
+export function eachKey(obj, f: (string) => void) {
+	for (let k in obj) if (has(obj, k)) f(k);
+}
+
+export function extend(dest, src) {
+	for (let k in src) {
+		if (src.hasOwnProperty(k)) {
+			dest[k] = src[k];
 		}
-
-		return uuid;
 	}
+	return dest;
+}
 
-	// adds 's' to the end of a given world when count > 1
-	static pluralize(count: number, word: string) {
-		return count === 1 ? word : word + "s";
-	}
+export function isString(s) {
+	return typeof s === 'string';
+}
 
-	// stores data using the localStorage API
-	static store(namespace: string, data?: string) {
-		if (data) {
-			return localStorage.setItem(namespace, JSON.stringify(data));
-		}
+export function isObject(obj) {
+	return obj && typeof obj === 'object';
+}
 
-		const store = localStorage.getItem(namespace);
-		return (store && JSON.parse(store)) || [];
-	}
+export function undef(value) {
+	return value === undefined;
+}
 
-	// just a helper for inheritance
-	static extend(...objs: any[]): any {
-		const newObj = {} as any;
-		for (let i = 0; i < objs.length; i++) {
-			const obj = objs[i];
-			for (let key in obj) {
-				if (obj.hasOwnProperty(key)) {
-					newObj[key] = obj[key];
-				}
-			}
-		}
-		return newObj;
-	}
+export function def(value) {
+	return value !== undefined;
+}
+
+export function isNull(value) {
+	return value === null;
+}
+
+export function isUndefinedOrNull(value) {
+	return value === undefined || value === null;
 }
