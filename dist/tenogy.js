@@ -87,6 +87,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	__export(__webpack_require__(21));
 	__export(__webpack_require__(22));
 	__export(__webpack_require__(23));
+	__export(__webpack_require__(24));
 	function i(moduleName, exports) {
 	    document.addEventListener("DOMContentLoaded", function () {
 	        exports(window["_app_"][moduleName]);
@@ -1303,6 +1304,42 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 23 */
+/***/ function(module, exports) {
+
+	"use strict";
+	var kov = ko["validation"], addRule = kov.addRule;
+	kov.addRule = function (observable, rule) {
+	    var ruleInitialize = rule.rule == null ? null : kov.rules[rule.rule].initialize;
+	    if (ruleInitialize) {
+	        ruleInitialize(observable, rule);
+	    }
+	    return addRule.call(this, observable, rule);
+	};
+	kov.rules["confirmPassword"] = {
+	    validator: function (val, params) {
+	        return val === kov.utils.getValue(params);
+	    },
+	    message: "Passwords do not match."
+	};
+	kov.rules["phone"] = {
+	    validator: function (phoneNumber, validate) {
+	        if (typeof (phoneNumber) !== "string") {
+	            return false;
+	        }
+	        return validate && /^\d[\d -]*\d$/.test(phoneNumber);
+	    },
+	    message: "Please specify a valid phone number"
+	};
+	kov.registerExtenders();
+	function registerValidationRule(name, options) {
+	    kov.rules[name] = options;
+	    kov.registerExtenders();
+	}
+	exports.registerValidationRule = registerValidationRule;
+
+
+/***/ },
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";

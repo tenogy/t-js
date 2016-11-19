@@ -23,6 +23,7 @@ export * from "./lists/sortRule";
 export * from "./lists/listPaging";
 export * from "./lists/listWithServerHtml";
 
+export * from "./ko/validation/validationRules";
 export * from "./ko/validation/validationScope";
 
 export function i(moduleName: string, exports: (m)=>void) {

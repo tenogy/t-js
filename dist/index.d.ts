@@ -218,6 +218,9 @@ declare module "lists/listWithServerHtml" {
         gotoPageHandler: any;
     }
 }
+declare module "ko/validation/validationRules" {
+    export function registerValidationRule(name: string, options: any): void;
+}
 declare module "ko/validation/validationScope" {
     export class ValidationScope {
         validatables: KnockoutObservableArray<any>;
@@ -252,6 +255,7 @@ declare module "tenogy" {
     export * from "lists/sortRule";
     export * from "lists/listPaging";
     export * from "lists/listWithServerHtml";
+    export * from "ko/validation/validationRules";
     export * from "ko/validation/validationScope";
     export function i(moduleName: string, exports: (m) => void): void;
     export function applyBindings(model: any, query: string): void;
