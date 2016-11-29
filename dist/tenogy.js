@@ -705,15 +705,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var callbackDone = valueAccessor();
 	        var allBindings = allBindingsAccessor();
 	        var uploading = allBindings.uploading;
-	        var options = {};
-	        options.url = allBindings.url || "ru";
-	        options.maxFileSize = allBindings.maxFileSize || 5;
-	        options.acceptFileTypes = allBindings.acceptFileTypes || "";
+	        var options = allBindings.options || {};
+	        options.dataType = "json";
 	        options.done = function (e, data) {
 	            if (uploading) {
 	                uploading(false);
 	            }
-	            callbackDone(data);
+	            callbackDone(data && data.result);
 	        },
 	            $(element).fileupload(options).on("change", function () {
 	                if (uploading) {
