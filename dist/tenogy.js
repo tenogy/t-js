@@ -718,6 +718,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                uploading(true);
 	            }
 	        });
+	        $(element).fileupload(options);
 	    };
 	    return FileUploadBinding;
 	}(baseBinding_1.BaseBinding));

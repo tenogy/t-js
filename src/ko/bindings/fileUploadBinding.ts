@@ -18,6 +18,7 @@ export class FileUploadBinding extends BaseBinding {
 				uploading(true);
 			}
 		});
+		($(element) as any).fileupload(options);
 	}
 }
 
