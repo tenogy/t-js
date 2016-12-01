@@ -6,19 +6,18 @@ export class FileUploadBinding extends BaseBinding {
 		var allBindings = allBindingsAccessor();
 		var uploading = allBindings.uploading;
 		var options: any = allBindings.options || {};
-		options.dataType = "json";
-		options.done = (e, data) => {
+		options.dataType = options.dataType || "json";
+		options.always = options.always || ((e, data) => {
 			if (uploading) {
 				uploading(false);
 			}
 			callbackDone(data && data.result);
-		},
-
-			(<any>$(element)).fileupload(options).on("change", () => {
-				if (uploading) {
-					uploading(true);
-				}
-			});
+		});
+		options.start = options.start || (() => {
+			if (uploading) {
+				uploading(true);
+			}
+		});
 	}
 }
 

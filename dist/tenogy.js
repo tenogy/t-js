@@ -706,18 +706,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var allBindings = allBindingsAccessor();
 	        var uploading = allBindings.uploading;
 	        var options = allBindings.options || {};
-	        options.dataType = "json";
-	        options.done = function (e, data) {
+	        options.dataType = options.dataType || "json";
+	        options.always = options.always || (function (e, data) {
 	            if (uploading) {
 	                uploading(false);
 	            }
 	            callbackDone(data && data.result);
-	        },
-	            $(element).fileupload(options).on("change", function () {
-	                if (uploading) {
-	                    uploading(true);
-	                }
-	            });
+	        });
+	        options.start = options.start || (function () {
+	            if (uploading) {
+	                uploading(true);
+	            }
+	        });
 	    };
 	    return FileUploadBinding;
 	}(baseBinding_1.BaseBinding));

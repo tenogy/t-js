@@ -1,32 +1,33 @@
 {
-  "version": "0.1.10",
-  "name": "tenogy",
-  "author": "Yuriy Korpachan <korpachan@gmail.com>",
-  "main": "./dist/tenogy.js",
-  "typings": "./dist/index.d.ts",
-  "devDependencies": {
-    "json-loader": "^0.5.4",
-    "ts-loader": "^0.8.2",
-    "typescript": "^2.1.0-dev.20161004",
-    "webpack": "^1.13.2"
-  },
-  "dependencies": {
-    "@types/jquery": "^2.0.32",
-    "@types/knockout": "^3.4.35",
-    "@types/rx": "^2.5.32",
-    "@types/select2": "^4.0.30",
-    "@types/spin": "^2.3.30",
-    "blueimp-file-upload": "^9.12.5",
-    "jquery": "^3.0.0",
-    "knockout": "^3.4.0",
-    "knockout.validation": "^2.0.3",
-    "rx": "^4.1.0",
-    "select2": "^4.0.3",
-    "spin.js": "^2.3.2",
-    "summernote": "^0.8.1"
-  },
-  "scripts": {
-    "d": "tsc -p src\\ts-d.json -d && del dist\\index.js",
-    "build": "webpack && webpack -p && npm run d"
-  }
+	"version": "0.1.15",
+	"name": "tenogy",
+	"author": "Yuriy Korpachan <korpachan@gmail.com>",
+	"main": "./dist/tenogy.js",
+	"typings": "./dist/index.d.ts",
+	"devDependencies": {
+		"json-loader": "^0.5.4",
+		"ts-loader": "^0.8.2",
+		"typescript": "^2.1.0-dev.20161004",
+		"webpack": "^1.13.2"
+	},
+	"dependencies": {
+		"@types/jquery": "^2.0.32",
+		"@types/knockout": "^3.4.35",
+		"@types/rx": "^2.5.32",
+		"@types/select2": "^4.0.30",
+		"@types/spin": "^2.3.30",
+		"blueimp-file-upload": "^9.12.5",
+		"jquery": "^3.0.0",
+		"knockout": "^3.4.0",
+		"knockout.validation": "^2.0.3",
+		"rx": "^4.1.0",
+		"select2": "^4.0.3",
+		"spin.js": "^2.3.2",
+		"summernote": "^0.8.1"
+	},
+	"scripts": {
+		"d": "tsc -p src\\ts-d.json -d && del dist\\index.js",
+		"build": "webpack && webpack -p && npm run d",
+		"p": "npm run build && npm publish"
+	}
 }
