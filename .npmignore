@@ -1,0 +1,8 @@
+node_modules/
+.bowerrc
+
+dev/
+/vs
+/src
+webpack.config.js
+bower.json

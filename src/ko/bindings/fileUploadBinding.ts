@@ -11,7 +11,7 @@ export class FileUploadBinding extends BaseBinding {
 			if (uploading) {
 				uploading(false);
 			}
-			callbackDone(data && data.result);
+			callbackDone.call(viewModel, data && data.result);
 		});
 		options.start = options.start || (() => {
 			if (uploading) {
