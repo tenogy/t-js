@@ -1,19 +1,17 @@
-﻿import {SortDirection} from "./sort";
+﻿import { SortDirection } from "./sort";
+import { def, debounce } from "./../utils";
 
 export class SortRule {
 	constructor(type?: any, direction?: SortDirection) {
-		this.type = ko.observable(type || null);
+		this.type = ko.observable(def(type) ? type : null);
 		this.direction = ko.observable(direction || SortDirection.asc);
 	}
 
 	subscribe(handler: any, context?: any) {
-		var components = [this.type, this.direction];
-		var changes = <any>Rx.Observable.create(observer => {
-			for (var component of components) {
-				(<any>component).subscribe(() => { (<any>observer).onNext(); });
-			}
-		});
-		changes.debounce(10).subscribe(handler, context);
+		const handle = debounce(() => handler.call(context || this), 10);
+
+		this.type.subscribe(handle);
+		this.direction.subscribe(handle);
 	}
 
 	toModel(options: any) {
