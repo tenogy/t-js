@@ -6,6 +6,7 @@ export class SummernoteBinding extends BaseBinding {
 		var missingPhrases = ["<p><br></p>", "<p>&nbsp;</p>"];
 		var options = {
 			height: super.unwrap(allBindingsAccessor.get("height")) || 100,
+			lang: super.unwrap(allBindingsAccessor.get("lang")) || "en-US",
 			callbacks: {
 				onChange: content => {
 					ko.utils.domData.set(element, "_updating", true);
