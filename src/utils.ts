@@ -18,13 +18,48 @@ export function contains(obj, property) {
 };
 
 
+/**
+ * Enumerates keys of plain object.
+ * @param obj
+ * @param f
+ */
 export function eachKey(obj, f: (string) => void) {
-	for (let k in obj) if (hasOwnProperty.call(obj, k)) f(k);
+	for (let k in obj) f(k);
 }
 
+/**
+ * Extends plain mutable object.
+ * @param dest
+ * @param src
+ */
 export function extend(dest, src) {
-	for (let k in src) if (hasOwnProperty.call(src, k)) dest[k] = src[k];
+	for (let k in src) dest[k] = src[k];
 	return dest;
+}
+
+/**
+ * Extends plain mutable object restricted by scope.
+ * @param dest
+ * @param src
+ */
+export function extendScoped(dest, src, scope) {
+	if (!scope) return extend(dest, src);
+
+	for (let k in src) {
+		if (hasOwnProperty.call(scope, k)) dest[k] = src[k];
+	}
+	return dest;
+}
+/**
+ * Convert array to plain object.
+ * @param array
+ */
+export function plainArray(array: string[]) {
+	const r = {};
+	for (let i = 0; i < array.length; i++) {
+		r[array[i]] = undefined;
+	}
+	return r;
 }
 
 export function isString(s) {
