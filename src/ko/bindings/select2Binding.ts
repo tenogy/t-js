@@ -1,4 +1,5 @@
 ﻿import { BaseBinding } from "./../core/baseBinding"
+declare var $;
 
 export class Select2Binding extends BaseBinding {
 	private selectedValue: any;
@@ -13,7 +14,6 @@ export class Select2Binding extends BaseBinding {
 
 	init(element: HTMLElement, valueAccessor: () => any, allBindingsAccessor?: KnockoutAllBindingsAccessor) {
 		const $element = $(element);
-
 		let selectedValue = valueAccessor();
 		this.proccessAllBindings($element, allBindingsAccessor() || {});
 
@@ -27,6 +27,7 @@ export class Select2Binding extends BaseBinding {
 			$element.addClass("disable-autocomplete");
 		}
 
+		const addClassesFn = (data, container) => this.addCssClasses(data, container);
 		const select2Options = {
 			data: this.config.data,
 			allowClear: this.config.allowClear,
@@ -37,11 +38,20 @@ export class Select2Binding extends BaseBinding {
 			language: this.config.lang ? this.config.lang : "en",
 			width: this.config.width,
 			dropdownAutoWidth: true,
-			sorter: this.sort.bind(this, $element)
-		} as Select2Options;
+			sorter: this.sort.bind(this, $element),
+			templateResult: addClassesFn,
+			templateSelection: addClassesFn
+		};
 		const select2 = $element.select2(select2Options).data("select2");
 
 		resolveKeyPressIssue(select2);
+	}
+
+	addCssClasses(data, container) {
+		if (data.val && data.val.cssClass) {
+			$(container).addClass(data.val.cssClass);
+		}
+		return data.text;
 	}
 
 	update(element: HTMLElement, valueAccessor: () => any) {
@@ -54,14 +64,14 @@ export class Select2Binding extends BaseBinding {
 		this.updateSingleElementValue($element, value);
 	}
 
-	updateValue($element: JQuery, selectedValue: any) {
+	updateValue($element, selectedValue: any) {
 		if (this.config.multiple) {
 			return this.updateMultipleValue($element, selectedValue);
 		}
 		this.updateSingleValue($element, selectedValue);
 	}
 
-	updateSingleValue($element: JQuery, selectedValue: any) {
+	updateSingleValue($element, selectedValue: any) {
 		const val = $element.val();
 		if (val === this.selectedValue) return;
 
@@ -75,7 +85,7 @@ export class Select2Binding extends BaseBinding {
 		selectedValue(value.val);
 	}
 
-	updateMultipleValue($element: JQuery, selectedValue: any) {
+	updateMultipleValue($element, selectedValue: any) {
 		const val = $element.val();
 		if (val == null && selectedValue != null) {
 			selectedValue(null);
@@ -87,7 +97,7 @@ export class Select2Binding extends BaseBinding {
 		selectedValue(value.map(v => v.val));
 	}
 
-	updateSingleElementValue($element: JQuery, value: any) {
+	updateSingleElementValue($element, value: any) {
 		const selectedValue = getValue(value, this.config.optionsValue);
 		const selected = selectedValue == "undefined" ? null : selectedValue;
 		const val = $element.val();
@@ -98,7 +108,7 @@ export class Select2Binding extends BaseBinding {
 		$element.val(selected).trigger("change");
 	}
 
-	updateMultipleElementValue($element: JQuery, value: any) {
+	updateMultipleElementValue($element, value: any) {
 		const val = $element.val();
 		if (!value) {
 			this.selectedValue = null;
@@ -121,7 +131,7 @@ export class Select2Binding extends BaseBinding {
 		return value.map(o => ({ text: getText(o, optionsText), id: getValue(o, optionsValue), val: o }));
 	}
 
-	proccessAllBindings($element: JQuery, allBindings: any) {
+	proccessAllBindings($element, allBindings: any) {
 		var config: any = this.config = {};
 		const options = this.unwrap(allBindings.selections);
 		config.allowClear = this.unwrap(allBindings.allowClear) || false;
@@ -166,7 +176,7 @@ export class Select2Binding extends BaseBinding {
 		}
 	}
 
-	sort($element: JQuery, data: any) {
+	sort($element, data: any) {
 		const select2 = $element.data("select2");
 		var searchInput = select2.$dropdown.find(".select2-search__field").val() || "";
 		if (!searchInput) return data;
@@ -197,7 +207,7 @@ function getData(value: any, optionsText: string, optionsValue: string) {
 function getValue(item: any, valueProperty: string): any {
 	if (item == null || item == "undefined") return item;
 
-	let value = item[valueProperty || "id"];
+	let value = (typeof item == "object") ? item[valueProperty || "id"] : item;
 	value = (ko.isObservable(value)) ? value() : value;
 	return value == null ? -1001 : value;
 }
