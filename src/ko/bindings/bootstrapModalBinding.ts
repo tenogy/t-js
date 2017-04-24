@@ -28,7 +28,7 @@ export class BootstrapModalBinding extends BaseBinding {
 		var options:any = { show: false, backdrop: false, keyboard: false };
 		if (controller) {
 		
-			options = { ...config.options, ...options};
+			options = { ...options, ...config.options};
 		}
 		else {
 			controller = config;
