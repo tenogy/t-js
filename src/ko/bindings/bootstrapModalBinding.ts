@@ -38,6 +38,10 @@ export class BootstrapModalBinding extends BaseBinding {
 			$element.css("z-index", parseInt(options.zindex) + 1);
 		}
 
+		if (options.replaceToContainer) {
+			$(element).appendTo(options.replaceToContainer);
+		}
+
 		if (config.html) {
 			$element.html(config.html);
 		}
