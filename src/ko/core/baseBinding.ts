@@ -19,7 +19,15 @@
 
 	static register<T extends BaseBinding>(bindingName: string, bindingType: { new (): T; }, supportsVirtualElements?: boolean) {
 		// ReSharper disable once InconsistentNaming
-		ko.bindingHandlers[bindingName] = new bindingType();
+		const bindingInstance = new bindingType();
+
+		const binding = {
+			init: bindingInstance.init.bind(bindingInstance),
+			update: bindingInstance.update.bind(bindingInstance),
+			preprocess: bindingInstance.preprocess.bind(bindingInstance)
+		}
+		ko.bindingHandlers[bindingName] = binding;
+		
 		if (supportsVirtualElements) {
 			ko.virtualElements.allowedBindings[bindingName] = true;
 		}
