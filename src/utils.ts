@@ -1,6 +1,6 @@
-﻿import { now } from "./dom";
+﻿import { now } from './platform';
 
-const FUNC_ERROR_TEXT = "Expected a function";
+const FUNC_ERROR_TEXT = 'Expected a function';
 
 const hasOwnProperty = Object.prototype.hasOwnProperty,
 	nativeMax = Math.max,
@@ -8,15 +8,14 @@ const hasOwnProperty = Object.prototype.hasOwnProperty,
 
 export function has(obj, property) {
 	return hasOwnProperty.call(obj, property);
-};
+}
 
 export function contains(obj, property) {
 	if (!obj.indexOf) {
 		return has(obj, property);
 	}
 	return obj.indexOf(property) > -1;
-};
-
+}
 
 /**
  * Enumerates keys of plain object.
@@ -68,6 +67,10 @@ export function isString(s) {
 
 export function isObject(obj) {
 	return obj && typeof obj === 'object';
+}
+
+export function isFunction(obj) {
+	return !!(obj && obj.constructor && obj.call && obj.apply);
 }
 
 export function undef(value) {
@@ -143,8 +146,12 @@ export function debounce(func, wait, options?) {
 		// Either this is the first call, activity has stopped and we're at the
 		// trailing edge, the system time has gone backwards and we're treating
 		// it as the trailing edge, or we've hit the `maxWait` limit.
-		return (lastCallTime === undefined || (timeSinceLastCall >= wait) ||
-			(timeSinceLastCall < 0) || (maxing && timeSinceLastInvoke >= maxWait));
+		return (
+			lastCallTime === undefined ||
+			timeSinceLastCall >= wait ||
+			timeSinceLastCall < 0 ||
+			(maxing && timeSinceLastInvoke >= maxWait)
+		);
 	}
 
 	function timerExpired() {

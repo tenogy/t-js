@@ -1,43 +1,15 @@
 {
-	"editor.insertSpaces": false,
-	"editor.detectIndentation": false,
-	"editor.renderWhitespace": "boundary",
-	"editor.fontSize": 14,
-	"files.exclude": {
-		"appsettings.json": true,
-		"JSC.xproj": true,
-		"JSC.xproj.user": true,
-		"README.md": true,
-		".gitignore": true,
-		".vs": true,
-		"bat": true,
-		"bin": true,
-		"BuildUtils": true,
-		"Common": true,
-		"data": true,
-		"obj": true,
-		"Properties": true,
-		"vs": true,
-		"dist": true,
-		".build": true,
-		"release": true,
-		"server/exporter": true,
-		"server/vvvv": true
-	},
-	"search.exclude": {
-		"**/node_modules": true,
-		"**/bower_components": true,
-		"dist": true,
-		".build": true,
-		"release": true,
-		"staging": true,
-		"resources": true,
-		"@internal": true,
-		"sandbox/OldJSCBundle": true,
-		"server/exporter": true,
-		"server/vvvv": true
-	},
-	"typescript.tsdk": "./node_modules/typescript/lib",
-	"workbench.sideBar.location": "right",
-	"typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": false
+  "editor.insertSpaces": false,
+  "editor.detectIndentation": false,
+  "editor.renderWhitespace": "boundary",
+  "editor.fontSize": 14,
+  "files.exclude": {
+    ".build": true,
+    "**/node_modules": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    ".build": true
+  },
+  "typescript.tsdk": "./node_modules/typescript/lib"
 }
