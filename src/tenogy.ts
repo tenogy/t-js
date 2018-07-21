@@ -39,5 +39,6 @@ export function i(moduleName: string, exports: (m) => void) {
 }
 
 export function applyBindings(model, query: string) {
-	ko.applyBindings(model, document.querySelector(query));
+	const el = document.querySelector(query);
+	el && ko.applyBindings(model, el);
 }

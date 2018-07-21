@@ -1,5 +1,5 @@
 {
-  "version": "1.0.2",
+  "version": "1.0.3",
   "name": "tenogy",
   "author": "Yuriy Korpachan <korpachan@gmail.com>",
   "main": "./dist/tenogy.js",
@@ -27,7 +27,8 @@
   },
   "scripts": {
     "d": "tsc -p src\\ts-d.json -d && del dist\\index.js",
-    "build": "webpack && webpack -p && npm run d",
-    "p": "npm run build && npm publish"
-  }
+	"build": "webpack && webpack -p && npm run d",
+	"p": "npm run build && npm publish"
+  },
+  "_comment": "Use npm addUser before publishing lib"
 }
