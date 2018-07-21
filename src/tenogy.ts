@@ -1,5 +1,7 @@
 ﻿import { ready } from './platform';
 export * from './platform';
+export { ready };
+
 export * from './queries';
 export * from './utils';
 export * from './ajax';
